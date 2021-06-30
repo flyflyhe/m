@@ -23,6 +23,22 @@ func InitNode() *Node  {
 	return node
 }
 
+func (node *Node) Search(v int) *Node {
+	if node == nil {
+		return nil
+	}
+
+	if node.Value > v {
+		return node.Left.Search(v)
+	} else if node.Value < v {
+		return node.Right.Search(v)
+	} else {
+		return node
+	}
+
+	return nil
+}
+
 func (node *Node) Insert(v int) bool {
 	if node.Value == -1 {
 		node.Value = v
@@ -48,6 +64,15 @@ func (node *Node) Insert(v int) bool {
 	return true
 }
 
+func (node *Node) Delete(v int) bool {
+	needDeleteNode := node.Search(v)
+	if needDeleteNode == nil {
+		return false
+	}
+
+	return true
+}
+
 func (node *Node) MiddleRoot() {
 	//先输出左叶子节点
 	if node.Left != nil {
@@ -55,7 +80,7 @@ func (node *Node) MiddleRoot() {
 	}
 
 	//输出本身
-	fmt.Print(node.Value, ",")
+	fmt.Print("->", node.Value)
 
 	//输出右叶子
 	if node.Right != nil {
