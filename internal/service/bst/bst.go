@@ -35,8 +35,6 @@ func (node *Node) Search(v int) *Node {
 	} else {
 		return node
 	}
-
-	return nil
 }
 
 func (node *Node) Insert(v int) bool {
@@ -68,6 +66,29 @@ func (node *Node) Delete(v int) bool {
 	needDeleteNode := node.Search(v)
 	if needDeleteNode == nil {
 		return false
+	}
+
+	//左子节点右子节点都为空直接删除
+	if needDeleteNode.Left == nil && needDeleteNode.Right == nil {
+		if needDeleteNode.Parent.Left.Value == needDeleteNode.Value {
+			needDeleteNode.Parent.Left = nil
+		} else {
+			needDeleteNode.Parent.Right = nil
+		}
+	} else if needDeleteNode.Right == nil { //只有左节点
+		needDeleteNode.Left.Parent = needDeleteNode.Parent
+		needDeleteNode.Parent.Left = needDeleteNode.Left
+	} else if needDeleteNode.Left == nil { //只有右节点 直接删除此节点 此节点的右子树作为新的
+		needDeleteNode.Right.Parent = needDeleteNode.Parent
+		needDeleteNode.Parent.Right = needDeleteNode.Right
+	} else { //左右节点都不为空 使用前驱节点
+		temp := needDeleteNode.Left
+		for temp.Right != nil {
+			temp = temp.Right
+		}
+
+		node.Delete(temp.Value)
+		needDeleteNode.Value =  temp.Value
 	}
 
 	return true

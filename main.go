@@ -10,6 +10,14 @@ func main() {
 	node := bst.GenerateBst(intList)
 	node.MiddleRoot()
 
+	fmt.Println()
+
+	node.Delete(8)
+
+	fmt.Println()
+
+	node.MiddleRoot()
+
 	if node.Search(21) != nil {
 		fmt.Print("存在")
 	} else {
