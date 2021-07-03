@@ -1,7 +1,7 @@
 package main
 
-import "flyflyhe.com/m/internal/service/dfs"
+import "log"
 
 func main() {
-	dfs.Done()
+	log.Println("请使用单元测试")
 }
