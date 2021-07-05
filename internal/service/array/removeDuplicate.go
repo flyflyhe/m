@@ -29,15 +29,21 @@ func RemoveElement(nums []int, v int) int  {
 			if fast == len(nums) - 1 {
 				break
 			}
+
 			fast++
 		}
 
 		fmt.Println(nums)
 		fmt.Println("slow", slow, "fast", fast)
 
-		if slow < fast {
-			nums[slow] = nums[fast]
+		if nums[fast] != v {
+			if slow < fast {
+				nums[slow] = nums[fast]
+			}
+		} else {
+			break
 		}
+
 
 		slow++
 		fast++
@@ -46,4 +52,22 @@ func RemoveElement(nums []int, v int) int  {
 	fmt.Println(nums)
 
 	return slow
+}
+
+func RemoveElementGood(nums []int, val int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	j := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] != val {
+			fmt.Println(nums)
+			fmt.Println("i", i, "j", j)
+			if i != j {
+				nums[j] = nums[i]
+			}
+			j++
+		}
+	}
+	return j
 }
