@@ -21,15 +21,14 @@ func RemoveDuplicate(nums []int) int {
 }
 
 func RemoveElement(nums []int, v int) int  {
-	slow, fast := 0, 0
+	slow :=  0
 
 	fmt.Println("============================")
-	for slow < len(nums) && fast < len(nums) {
+	for fast := 0 ; fast < len(nums) ; fast++ {
 		for nums[fast] == v {
 			if fast == len(nums) - 1 {
 				break
 			}
-
 			fast++
 		}
 
@@ -43,8 +42,6 @@ func RemoveElement(nums []int, v int) int  {
 		} else {
 			break
 		}
-
-
 		slow++
 		fast++
 	}
@@ -58,16 +55,17 @@ func RemoveElementGood(nums []int, val int) int {
 	if len(nums) == 0 {
 		return 0
 	}
-	j := 0
-	for i := 0; i < len(nums); i++ {
-		if nums[i] != val {
+	slow := 0
+	for fast := 0; fast < len(nums); fast++ {
+		if nums[fast] != val {
 			fmt.Println(nums)
-			fmt.Println("i", i, "j", j)
-			if i != j {
-				nums[j] = nums[i]
+			fmt.Println("fast", fast, "slow", slow)
+			if slow != fast {
+				nums[slow] = nums[fast]
 			}
-			j++
+			slow++
 		}
 	}
-	return j
+	return slow
+
 }
