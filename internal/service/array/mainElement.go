@@ -1,5 +1,7 @@
 package array
 
+import "fmt"
+
 func majorityElementViolence(nums []int) int {
 	m := make(map[int]int)
 	majorElement := -1
@@ -46,8 +48,8 @@ func majorityElement(nums []int) int {
 
 func SortNumsPop(nums []int) []int  {
 	for i := 0; i < len(nums); i++ {
-		for j := i + 1; j < len(nums); j++ {
-			if nums[i] > nums[j] {
+		for j := 0; j < i; j++ {
+			if nums[j] > nums[i] {
 				nums[j], nums[i] = nums[i], nums[j]
 			}
 		}
@@ -55,3 +57,37 @@ func SortNumsPop(nums []int) []int  {
 
 	return nums
 }
+
+func SortNum(nums []int) []int {
+	if len(nums) < 2 {
+		return nums
+	}
+	l := 0
+	r := len(nums) - 1
+	m := nums[0]
+
+	for l < r {
+		for ;l < r; r-- {
+			if nums[r] < m {
+				nums[l] = nums[r]
+				break
+			}
+		}
+		for ; l < r; l++ {
+			if nums[l] > m {
+				nums[r] = nums[l]
+				break
+			}
+		}
+	}
+
+	left := nums[:l]
+	right := nums[r+1:]
+	fmt.Println(left)
+	fmt.Println(right)
+	ret := append(SortNum(left), m)
+
+	return append(ret, SortNum(right)...)
+}
+
+
