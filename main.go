@@ -1,23 +1,15 @@
 package main
 
-import (
-	"flyflyhe.com/m/internal/service/dfs"
-	"log"
-)
+import "fmt"
 
 func main() {
-	log.Println("请使用单元测试")
+	s := []int{1,2,3}
+	fmt.Printf("%v\n", s)
+	ChangeSlice(s)
+	fmt.Printf("%v\n", s)
+}
 
-	var relation [][]int
-	relation = append(relation, []int{0, 2})
-	relation = append(relation, []int{2, 1})
-	relation = append(relation, []int{3, 4})
-	relation = append(relation, []int{2, 3})
-	relation = append(relation, []int{1, 4})
-	relation = append(relation, []int{2, 0})
-	relation = append(relation, []int{0, 4})
-
-
-
-	dfs.Dfs(0, dfs.CreateGraph(5, relation))
+func ChangeSlice(s []int) {
+	s = append(s, 4)
+	s[0] = 2
 }
