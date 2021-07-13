@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	s := []int{1,2,3}
-	fmt.Printf("%v\n", s)
+	fmt.Printf("%v\n", s[:3])
 	ChangeSlice(s)
 	fmt.Printf("%v\n", s)
 }

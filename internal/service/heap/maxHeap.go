@@ -1,5 +1,7 @@
 package heap
 
+import "fmt"
+
 func SortByMaxHeap(nums []int) []int{
 	heap := BuildMaxHeap(nums)
 	l := len(nums)
@@ -34,5 +36,45 @@ func InsertHeap(heapArr []int, i, num int) {
 			heapArr[parent] = num
 			InsertHeap(heapArr, parent, num)
 		}
+	}
+}
+
+func SortByMaxHeap2(nums []int) []int{
+	BuildMaxHeap2(nums, len(nums))
+	l := len(nums)
+	for i := 0; i < l; i++ {
+		l = l - 1
+		nums[l], nums[i] = nums[i], nums[l]
+		fmt.Println(nums)
+		BuildMaxHeap2(nums, l)
+		i--
+	}
+
+	return nums
+}
+
+func BuildMaxHeap2(nums []int, length int) {
+	for i, _ := range nums {
+		if i < length {
+			InsertHeap2(nums, i)
+		}
+	}
+}
+
+func InsertHeap2(nums []int, i int) {
+	if i == 0 {
+		return
+	}
+
+	var pos int
+	if i % 2 == 1 {
+		pos = i / 2
+	} else {
+		pos = i / 2 - 1
+	}
+
+	if nums[pos] < nums[i] {
+		nums[pos], nums[i] = nums[i], nums[pos]
+		InsertHeap2(nums, pos)
 	}
 }
