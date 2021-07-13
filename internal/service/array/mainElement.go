@@ -58,6 +58,36 @@ func SortNumsPop(nums []int) []int  {
 	return nums
 }
 
+func SortNumQuack(nums []int) {
+	if len(nums) < 2 {
+		return
+	}
+	m := nums[0] //用首位元素分割
+	r := len(nums) - 1
+	left := false
+	for l := 0; l < r; l++ {
+		if !left {
+			if nums[r] < m{
+				nums[l], nums[r] = nums[r], nums[l]
+				left = true
+			} else {
+				l--
+				r--
+			}
+		} else {
+			if nums[l] > m{
+				nums[l], nums[r] = nums[r], nums[l]
+				left = false
+				l--
+			}
+		}
+	}
+	nums[r] = m
+	fmt.Println(nums)
+	SortNumQuack(nums[0:r])
+	SortNumQuack(nums[r+1:])
+}
+
 func SortNum(nums []int) []int {
 	if len(nums) < 2 {
 		return nums
