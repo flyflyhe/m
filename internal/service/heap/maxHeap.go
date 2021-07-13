@@ -42,12 +42,11 @@ func InsertHeap(heapArr []int, i, num int) {
 func SortByMaxHeap2(nums []int) []int{
 	BuildMaxHeap2(nums, len(nums))
 	l := len(nums)
-	for i := 0; i < l; i++ {
+	for i := 0; i < l;{
 		l = l - 1
 		nums[l], nums[i] = nums[i], nums[l]
 		fmt.Println(nums)
 		BuildMaxHeap2(nums, l)
-		i--
 	}
 
 	return nums
