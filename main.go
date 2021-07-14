@@ -2,14 +2,37 @@ package main
 
 import "fmt"
 
-func main() {
-	s := []int{1,2,3}
-	fmt.Printf("%v\n", s[:3])
-	ChangeSlice(s)
-	fmt.Printf("%v\n", s)
+type Handler interface {
+	Do(k, v interface{})
 }
 
-func ChangeSlice(s []int) {
-	s = append(s, 4)
-	s[0] = 2
+type HandlerFunc func(k, v interface{})
+
+func (f HandlerFunc) Do(k, v interface{}) {
+	f(k, v)
+}
+
+func Each(m map[interface{}]interface{}, h Handler) {
+	if m != nil && len(m) > 0 {
+		for k, v := range m {
+			h.Do(k, v)
+		}
+	}
+}
+
+func EachFunc(m map[interface{}]interface{}, f func(k, v interface{})) {
+	Each(m, HandlerFunc(f))
+}
+
+func selfInfo(k, v interface{}) {
+	fmt.Printf("大家好,我叫%s,今年%d岁\n", k, v)
+}
+
+func main() {
+	persons := make(map[interface{}]interface{})
+	persons["张三"] = 20
+	persons["李四"] = 23
+	persons["王五"] = 26
+
+	EachFunc(persons, selfInfo)
 }
