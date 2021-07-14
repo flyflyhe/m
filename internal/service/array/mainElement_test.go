@@ -39,7 +39,7 @@ func TestSortNums(t *testing.T) {
 func TestSortNumsQuack(t *testing.T) {
 	nums := []int{4, 3, 9 , 1, 0}
 
-	SortNumQuack(nums)
+	SortNumQuick(nums)
 
 	str := fmt.Sprintf("%v", nums)
 

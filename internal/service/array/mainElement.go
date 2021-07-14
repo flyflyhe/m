@@ -58,7 +58,7 @@ func SortNumsPop(nums []int) []int  {
 	return nums
 }
 
-func SortNumQuack(nums []int) {
+func SortNumQuick(nums []int) {
 	if len(nums) < 2 {
 		return
 	}
@@ -84,8 +84,8 @@ func SortNumQuack(nums []int) {
 	}
 	nums[r] = m
 	fmt.Println(nums)
-	SortNumQuack(nums[0:r])
-	SortNumQuack(nums[r+1:])
+	SortNumQuick(nums[0:r])
+	SortNumQuick(nums[r+1:])
 }
 
 func SortNum(nums []int) []int {
