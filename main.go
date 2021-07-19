@@ -38,7 +38,7 @@ func selfInfo(k, v interface{}) {
 	fmt.Printf("大家好,我叫%s,今年%d岁\n", k, v)
 }
 
-func main() {
+func InterfaceFunc() {
 	persons := make(map[interface{}]interface{})
 	persons["张三"] = 20
 	persons["李四"] = 23
@@ -47,4 +47,8 @@ func main() {
 	var w welcome = "大家好"
 
 	Each(persons, w)
+}
+
+func main() {
+
 }
