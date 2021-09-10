@@ -12,3 +12,15 @@ func TwoSum(nums []int, target int) []int {
 
 	return nil
 }
+
+func chalkReplacer(chalk []int, k int) int {
+	oneLoop := 0
+	for i := 0; i < len(chalk); i++ {
+		if k < chalk[i] {
+			return i
+		}
+		oneLoop += chalk[i]
+		k -= chalk[i]
+	}
+	return chalkReplacer(chalk, k % oneLoop)
+}
