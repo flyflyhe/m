@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Handler interface {
 	Do(k, v interface{})
@@ -49,6 +51,6 @@ func InterfaceFunc() {
 	Each(persons, w)
 }
 
-func main() {
 
+func main() {
 }
