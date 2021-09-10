@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 )
 
@@ -51,6 +52,10 @@ func InterfaceFunc() {
 	Each(persons, w)
 }
 
+//go:embed main.go
+var src string
 
 func main() {
+
+	fmt.Print(src)
 }
