@@ -56,6 +56,5 @@ func InterfaceFunc() {
 var src string
 
 func main() {
-
 	fmt.Print(src)
 }
