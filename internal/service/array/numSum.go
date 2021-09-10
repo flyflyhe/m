@@ -45,10 +45,10 @@ func SearchRange1(nums []int, target int) []int {
 	l := 0
 	r := len(nums) - 1
 
-	for ; l <= r; {
+	for ; l < r; {
 		mid := l + r + 1 >> 1
 		if nums[mid] <= target {
-			l = mid + 1
+			l = mid
 		} else {
 			r = mid - 1
 		}
