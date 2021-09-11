@@ -82,9 +82,9 @@ func SearchRange1(nums []int, target int) []int {
 //
 //BlueRedBinarySearch
 //找到第一个 >= target的 index 条件 nums[mid] < target 返回r
-//找到第一个 < target的 index 条件 nums[mid] < target 返回l
+//找到最后一个 < target的 index 条件 nums[mid] < target 返回l
 //找到第一个 > target的 index 条件 nums[mid] <= target 返回r
-//找到第一个 <= target的 index 条件 nums[mid] <= target 返回l
+//找到最后一个 <= target的 index 条件 nums[mid] <= target 返回l
 ///**
 func BlueRedBinarySearch(nums []int, target int) int  {
 	l := -1
