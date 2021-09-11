@@ -1,5 +1,7 @@
 package array
 
+import "log"
+
 func TwoSum(nums []int, target int) []int {
 	length := len(nums)
 	for i := 0; i < length; i++ {
@@ -75,4 +77,27 @@ func SearchRange1(nums []int, target int) []int {
 	}
 
 	return ret
+}
+
+//
+//BlueRedBinarySearch
+//找到第一个 >= target的 index 条件 nums[mid] < target 返回r
+//找到第一个 < target的 index 条件 nums[mid] < target 返回l
+//找到第一个 > target的 index 条件 nums[mid] <= target 返回r
+//找到第一个 <= target的 index 条件 nums[mid] <= target 返回l
+///**
+func BlueRedBinarySearch(nums []int, target int) int  {
+	l := -1
+	r := len(nums)
+
+	for l + 1 != r {
+		mid := (l + r) / 2
+		log.Println("l", l, "r", r, "m", mid)
+		if nums[mid] < target {
+			l = mid
+		} else {
+			r = mid
+		}
+	}
+	return r
 }

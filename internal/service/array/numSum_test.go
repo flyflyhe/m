@@ -12,3 +12,11 @@ func TestSearchRange1(t *testing.T) {
 
 	log.Println(ret)
 }
+
+func TestBlueRedBinarySearch(t *testing.T) {
+	nums := []int{1,2,3,5,5,5,8,9}
+
+	i := BlueRedBinarySearch(nums, 5)
+
+	log.Println("i", i)
+}
