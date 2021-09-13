@@ -27,3 +27,23 @@ func peakIndexInMountainArray2(arr []int) int {
 
 	return right
 }
+
+func BinarySearch(nums []int, target int) int {
+	l := 0
+	r := len(nums) - 1
+	for l < r {
+		mid := (l + r) / 2
+		//log.Println("l", l, "r", r, "mid", mid)
+		if nums[mid] < target {
+			l = mid + 1
+		} else {
+			r = mid
+		}
+	}
+	//log.Println("l", l, "r", r)
+	if nums[r] == target {
+		return r
+	} else {
+		return -1
+	}
+}
