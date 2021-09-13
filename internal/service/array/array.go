@@ -17,7 +17,7 @@ func peakIndexInMountainArray2(arr []int) int {
 	right := len(arr) - 1
 
 	for left < right {
-		mid := left + right + 1 >> 1
+		mid := (left + right + 1) / 2
 		if arr[mid - 1] < arr[mid]  {
 			left = mid
 		} else {
