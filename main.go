@@ -55,6 +55,10 @@ func InterfaceFunc() {
 //go:embed main.go
 var src string
 
+
+func Test() {
+}
+
 func main() {
-	fmt.Print(2 + 5 >> 1)
+	Test()
 }
