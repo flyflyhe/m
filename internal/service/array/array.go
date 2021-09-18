@@ -1,5 +1,7 @@
 package array
 
+import "math"
+
 func peakIndexInMountainArray(arr []int) int {
 	point := 0
 	for i := 1; i < len(arr); i++ {
@@ -46,4 +48,22 @@ func BinarySearch(nums []int, target int) int {
 	} else {
 		return -1
 	}
+}
+
+func findMaxAverage(nums []int, k int) float64 {
+	var ans float64
+	var sum float64
+
+	for i := 0; i < k; i++ {
+		sum += float64(nums[i])
+	}
+
+	ans = sum / float64(k)
+
+	for i := k; i < len(nums); i++ {
+		sum = sum + float64(nums[i] - nums[i-k])
+		ans = math.Max(ans, sum/float64(k))
+	}
+
+	return ans
 }
