@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"github.com/shopspring/decimal"
 )
 
 type Handler interface {
@@ -55,10 +56,22 @@ func InterfaceFunc() {
 //go:embed main.go
 var src string
 
-
-func Test() {
+func main() {
+	decimal.DivisionPrecision = 2
+	d1 := decimal.NewFromFloat(2).Div(decimal.NewFromFloat(3))
+	fmt.Println(d1.String()) // output: "0.6666666666666667"
+	var a int8
+	a = -128
+	fmt.Println(absInt(a))
 }
 
-func main() {
-	Test()
+func absInt(x int8) int8 {
+	return absDiffInt(x, 0)
+}
+
+func absDiffInt(x, y int8) int8 {
+	if x < y {
+		return y - x
+	}
+	return x - y
 }
