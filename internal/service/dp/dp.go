@@ -30,3 +30,29 @@ func getCnt(u int) (ans int) {
 
 	return
 }
+
+func fib(n int) int {
+	if n == 0 {
+		return 0
+	}
+
+	if n == 1 {
+		return 1
+	}
+
+	return fib(n-1) + fib(n - 2)
+}
+
+func fibDp(n int) int {
+	if n < 2 {
+		return n
+	}
+	arr := make([]int, 3)
+	arr[0] = 0
+	arr[1] = 1
+	for i := 2; i < n + 1; i++ {
+		arr[i % 3] = arr[(i-1) % 3] + arr[(i-2) % 3]
+	}
+
+	return arr[n % 3]
+}

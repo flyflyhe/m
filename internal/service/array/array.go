@@ -91,3 +91,65 @@ func mergeSortArr(nums1 []int, m int, nums2 []int, n int)  {
 		idx--
 	}
 }
+
+/**
+跳跃游戏
+ */
+func jump(nums []int) int {
+	end := 0
+	maxPosition := 0
+	step := 0
+
+	for i := 0; i < len(nums) - 1; i++ {
+		maxPosition = max(maxPosition, i + nums[i])
+		if i == end {
+			step++
+			end = maxPosition
+		}
+	}
+
+	return step
+}
+
+/**
+f(n) = f(n - k) + 1
+ */
+func jumpDp(nums []int) int  {
+	arr := make([]int, len(nums))
+	j := 0
+	for i := 1; i < len(nums); i++ {
+		for j + nums[j] < i {
+			j++
+		}
+		arr[i] = arr[j] + 1
+	}
+
+	return arr[len(nums)-1]
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+
+	return y
+}
+
+/**
+杨辉三角
+ */
+func GetRow(rowIndex int) []int {
+	arr := make([][]int, rowIndex + 1)
+	arr[0] = make([]int, 1)
+	arr[0][0] = 1
+	for i := 1; i < rowIndex + 1; i++ {
+		arr[i] = make([]int, i + 1)
+		arr[i][0] = 1
+		arr[i][i] = 1
+		for j := 1; j < i; j++ {
+			arr[i][j] = arr[i-1][j-1] + arr[i-1][j]
+ 		}
+	}
+
+	return arr[rowIndex]
+}
