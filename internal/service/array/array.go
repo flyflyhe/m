@@ -153,3 +153,35 @@ func GetRow(rowIndex int) []int {
 
 	return arr[rowIndex]
 }
+
+/**
+超出时间限制
+ */
+func maxArea(height []int) int {
+	maxArea := 0
+	length := len(height)
+	for i := 0; i < length - 1; i++ {
+		for j := i + 1; j < length; j++ {
+			maxArea = max(maxArea, (j - i) * min(height[i], height[j]))
+		}
+	}
+
+	return maxArea
+}
+
+func maxArea2(height []int) int  {
+	maxArea := 0
+	length := len(height)
+	l := 0
+	r := length - 1
+	for l < r {
+		maxArea = max(maxArea, (r - l) * min(height[l], height[r]))
+		if height[l] < height[r] {
+			l++
+		} else {
+			r--
+		}
+	}
+
+	return maxArea
+}
