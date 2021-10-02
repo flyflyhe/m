@@ -1,5 +1,7 @@
 package num
 
+import "strings"
+
 func computeArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2 int) int {
 	area1 := (ax2 - ax1) * (ay2 - ay1)
 	area2 := (bx2 - bx1) * (by2 - by1)
@@ -21,4 +23,28 @@ func max(a, b int) int {
 		return b
 	}
 	return a
+}
+
+func ToHex(num int) string {
+	if num == 0 {
+		return "0"
+	}
+	sb := &strings.Builder{}
+	hexNum := "0123456789abcdef"//数字映射
+	for sb.Len() < 8 {
+		sb.WriteByte(hexNum[num & 0xf])
+		num >>= 4
+		if num == 0 {
+			break
+		}
+	}
+
+	return Reverse(sb.String())
+}
+
+func Reverse(s string) (result string) {
+	for _,v := range s {
+		result = string(v) + result
+	}
+	return
 }
