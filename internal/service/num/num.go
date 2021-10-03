@@ -1,6 +1,10 @@
 package num
 
-import "strings"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 func computeArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2 int) int {
 	area1 := (ax2 - ax1) * (ay2 - ay1)
@@ -40,6 +44,62 @@ func ToHex(num int) string {
 	}
 
 	return Reverse(sb.String())
+}
+
+/**
+模拟长除法
+ */
+func fractionToDecimal(numerator int, denominator int) string {
+	a := int64(numerator)
+	b := int64(denominator)
+
+	//可以整除 直接返回
+	if a % b == 0 {
+		return strconv.Itoa(int(a / b))
+	}
+
+	sb := strings.Builder{}
+	if a * b < 0 {
+		sb.WriteString("-")
+	}
+
+	a = AbsInt(a)
+	b = AbsInt(b)
+	sb.WriteString(strconv.Itoa(int(a / b)) + ".")
+
+	a %= b
+	m := make(map[int64]int)
+	for a != 0 {
+		m[a] = sb.Len()
+		a *= 10
+		sb.WriteString(strconv.Itoa(int(a / b)))
+		a %= b
+
+		if u, ok := m[a]; ok {
+			str := sb.String()
+			return fmt.Sprintf("%s(%s)", str[0:u], str[u:])
+		}
+	}
+
+	return sb.String()
+}
+
+func AbsInt(x int64) int64 {
+	return AbsDiffInt(x, 0)
+}
+
+func AbsDiffInt(x, y int64) int64 {
+	if x < y {
+		return y - x
+	}
+	return x - y
+}
+
+func AbsDiffUint(x, y uint64) uint64 {
+	if x < y {
+		return y - x
+	}
+	return x - y
 }
 
 func Reverse(s string) (result string) {
