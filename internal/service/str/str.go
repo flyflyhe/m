@@ -26,6 +26,33 @@ func LicenseKeyFormatting(s string, k int) string {
 	return strings.TrimLeft(ReverseStr(sb.String()), "-")
 }
 
+/**
+不用trim
+ */
+func licenseKeyFormatting(s string, k int) string {
+	bs := []byte(s)
+	l := len(bs)
+	sb := strings.Builder{}
+	counter := 0
+	for i := l - 1; i >= 0; i-- {
+		if bs[i] == '-' {
+			continue
+		}
+		if counter == k && counter >=0  {
+			counter = 0
+			sb.WriteByte('-')
+		}
+		if bs[i] >= 'a' {
+			sb.WriteByte(bs[i] - 32)
+		} else {
+			sb.WriteByte(bs[i])
+		}
+		counter++
+	}
+
+	return Reverse(sb.String())
+}
+
 func ReverseStr(str string) string  {
 	result := ""
 	for i := 0; i < len(str); i++ {
