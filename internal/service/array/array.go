@@ -185,3 +185,7 @@ func maxArea2(height []int) int  {
 
 	return maxArea
 }
+
+func destCity(paths [][]string) string {
+	return ""
+}
