@@ -17,3 +17,7 @@ func TestGetRow(t *testing.T) {
 	fmt.Println(GetRow(0))
 	fmt.Println(GetRow(1))
 }
+
+func TestThirdMax(t *testing.T) {
+	fmt.Println(ThirdMax([]int{1,2}))
+}
