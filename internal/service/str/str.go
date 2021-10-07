@@ -82,3 +82,40 @@ func Reverse_3(s string) string {
 	}(s)
 	return string(*a)
 }
+
+func CountSegments(s string) int {
+	words := 0
+	loopCharLen := 0
+	for _, v := range []byte(s) {
+		if v != ' ' {
+			loopCharLen++
+		} else {
+			if loopCharLen > 0 {
+				words++
+				loopCharLen = 0
+			}
+		}
+	}
+
+	if loopCharLen > 0 {
+		words++
+	}
+	return words
+}
+
+func CountSegments2(s string) int  {
+	ans := 0
+	length := len(s)
+	for i := 0; i < length; {
+		if s[i] == ' ' {
+			i++
+			continue
+		}
+		for  i < length  && s[i] != ' '{
+			i++
+		}
+
+		ans++
+	}
+	return ans
+}
