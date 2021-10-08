@@ -16,3 +16,8 @@ func TestCountSegments(t *testing.T) {
 	fmt.Println(CountSegments(" a   "))
 	fmt.Println(CountSegments("a   b"))
 }
+
+func TestFindRepeatedDnaSequences(t *testing.T) {
+	s := "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+	fmt.Println(FindRepeatedDnaSequences(s))
+}

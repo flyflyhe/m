@@ -1,6 +1,8 @@
 package str
 
-import "strings"
+import (
+	"strings"
+)
 
 func LicenseKeyFormatting(s string, k int) string {
 	bs := []byte(s)
@@ -118,4 +120,25 @@ func CountSegments2(s string) int  {
 		ans++
 	}
 	return ans
+}
+
+/**
+找出重复字符串
+ */
+func FindRepeatedDnaSequences(s string) []string {
+	m := make(map[string]int)
+	var str string
+	ret := make([]string, 0)
+	for i := 0; i < len(s) && i + 9 < len(s); i++ {
+		str = s[i:i+10]
+		if v, ok := m[str]; ok {
+			if v == 1 {
+				ret = append(ret, str)
+			}
+			m[str] = v+1
+		} else {
+			m[str] = 1
+		}
+	}
+	return ret
 }
