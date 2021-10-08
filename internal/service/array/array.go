@@ -185,3 +185,61 @@ func maxArea2(height []int) int  {
 
 	return maxArea
 }
+
+func destCity(paths [][]string) string {
+	return ""
+}
+
+func ThirdMax(nums []int) int {
+	max := -1<<31
+	second := -1<<31
+	third := -1<<31
+	hasThird := false
+
+	for _, v := range nums {
+		if max < v {
+			max = v
+		}
+	}
+	for _, v := range nums {
+		if  v < max && second < v {
+			second = v
+		}
+	}
+	for _, v := range nums {
+		if v < second {
+			hasThird = true
+			if third < v {
+				third = v
+			}
+		}
+	}
+
+	if hasThird {
+		return third
+	}
+
+	return max
+}
+
+func ThirdMax2(nums []int) int {
+	a := -1<<32
+	b := -1<<32
+	c := -1<<32
+
+	for _, x := range nums {
+		if x > a {
+			c = b; b = a; a = x
+		} else if x < a && x > b {
+			c = b; b = x
+		} else if x < b && x > c {
+			c = x
+		}
+	}
+
+	if c != -1 << 32 {
+		return c
+	}
+
+	return a
+}
