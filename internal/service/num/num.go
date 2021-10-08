@@ -33,7 +33,7 @@ func max(a, b int) int {
 func nthMagicalNumber(n int, a int, b int) int {
 	var r uint64
 	r = 1
-	max := uint64(2 << 63)
+	max := uint64(1 << 63)
 	for i := 1; i <= n; i++ {
 		for j := r; j < max; j++ {
 			if j%uint64(a) == 0 || j%uint64(b) == 0 {
