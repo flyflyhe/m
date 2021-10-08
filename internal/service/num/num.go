@@ -1,14 +1,11 @@
 package num
 
-<<<<<<< HEAD
-import "math"
-=======
 import (
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
->>>>>>> 65a512ef63c16b9bc0951b23280b5e09569b9171
 
 func computeArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2 int) int {
 	area1 := (ax2 - ax1) * (ay2 - ay1)
@@ -33,21 +30,21 @@ func max(a, b int) int {
 	return a
 }
 
-<<<<<<< HEAD
 func nthMagicalNumber(n int, a int, b int) int {
 	var r uint64
 	r = 1
 	max := uint64(2 << 63)
 	for i := 1; i <= n; i++ {
 		for j := r; j < max; j++ {
-			if j % uint64(a) == 0 || j % uint64(b) == 0 {
+			if j%uint64(a) == 0 || j%uint64(b) == 0 {
 				r = j
 			}
 		}
 	}
 
-	return int(r % uint64(math.Pow10(9)) + 7)
-=======
+	return int(r%uint64(math.Pow10(9)) + 7)
+}
+
 func ToHex(num int) string {
 	if num == 0 {
 		return "0"
@@ -126,5 +123,4 @@ func Reverse(s string) (result string) {
 		result = string(v) + result
 	}
 	return
->>>>>>> 65a512ef63c16b9bc0951b23280b5e09569b9171
 }
