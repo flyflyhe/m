@@ -35,3 +35,8 @@ func TestIsBalanced(t *testing.T) {
 	fmt.Println(IsBalanced(tree))
 	fmt.Println(IsBalanced(tree2))
 }
+
+func TestBuildTree(t *testing.T) {
+	root := BuildTree([]int{3,9,20,15,7}, []int{9,3,15,20,7})
+	fmt.Println(PreOrder(root))
+}

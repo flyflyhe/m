@@ -4,6 +4,7 @@ import (
 	"container/list"
 	"flyflyhe.com/m/internal/service/num"
 	"fmt"
+	"log"
 )
 
 type TreeNode struct {
@@ -52,6 +53,22 @@ func InorderTraversal(root *TreeNode) []int {
 		ret = append(ret, p.Val)
 		if p.Right != nil {
 			ret = append(ret, InorderTraversal(p.Right)...)
+		}
+	}
+	return ret
+}
+
+func PreOrder(root *TreeNode) []int {
+	p := root
+	var ret []int
+	if p != nil {
+		ret = append(ret, p.Val)
+		if p.Left != nil {
+			ret = append(ret, PreOrder(p.Left)...)
+		}
+
+		if p.Right != nil {
+			ret = append(ret, PreOrder(p.Right)...)
 		}
 	}
 	return ret
@@ -133,4 +150,37 @@ func TreeHeight2(root *TreeNode) int  {
 			return right
 		}
 	}
+}
+
+func BuildTree(preorder []int, inorder []int) *TreeNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+	root := &TreeNode{}
+	log.Println(preorder, inorder)
+	v := preorder[0] //根
+	root.Val = v
+	index := SearchIndex(inorder, v)
+	log.Println(index, index)
+	left := inorder[:index] //左子树
+	right := inorder[index+1:] //右子树
+
+	if len(left) > 0 {
+		root.Left = BuildTree(preorder[1:len(left)+1], left)
+	}
+
+	if len(right) > 0 {
+		root.Right = BuildTree(preorder[len(left)+1:], right)
+	}
+
+	return root
+}
+
+func SearchIndex(arr []int, val int) int {
+	for i := 0; i < len(arr); i++ {
+		if val == arr[i] {
+			return i
+		}
+	}
+	return -1
 }
