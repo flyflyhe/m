@@ -3,6 +3,7 @@ package num
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -123,4 +124,30 @@ func Reverse(s string) (result string) {
 		result = string(v) + result
 	}
 	return
+}
+
+/**
+排列硬币
+ */
+
+func ArrangeCoins(n int) int {
+	max := (1 << 31) - 1
+	for i := 1; i < max; i++ {
+		n -= i
+		if n > 0 {
+			continue
+		} else if n == 0 {
+			return i
+		} else {
+			return i - 1
+		}
+	}
+	return 0
+}
+
+func arrangeCoins(n int) int {
+	return sort.Search(n, func(k int) bool {
+		k++
+		return k*(k+1) > 2*n
+	})
 }
