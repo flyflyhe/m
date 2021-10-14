@@ -21,3 +21,7 @@ func TestGetRow(t *testing.T) {
 func TestThirdMax(t *testing.T) {
 	fmt.Println(ThirdMax([]int{1,2}))
 }
+
+func TestPeakIndexInMountainArray(t *testing.T) {
+	fmt.Println(PeakIndexInMountainArray([]int{1,2,3,4,3}))
+}

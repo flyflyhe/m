@@ -1,6 +1,9 @@
 package array
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 func peakIndexInMountainArray(arr []int) int {
 	point := 0
@@ -242,4 +245,27 @@ func ThirdMax2(nums []int) int {
 	}
 
 	return a
+}
+
+/**
+山脉数组
+ */
+
+func PeakIndexInMountainArray(arr []int) int {
+	length := len(arr)
+	l := 1
+	r := length - 2
+	for l < r {
+		mid := (l + r) / 2
+		fmt.Println("l", l, "r", r, "m",mid)
+		if arr[mid-1] < arr[mid] && arr[mid] < arr[mid+1] {
+			l = mid + 1
+		} else if arr[mid - 1] > arr[mid] && arr[mid] > arr[mid + 1] {
+			r = mid
+		} else {
+			return mid
+		}
+	}
+
+	return r
 }
