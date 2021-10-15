@@ -151,3 +151,54 @@ func arrangeCoins(n int) int {
 		return k*(k+1) > 2*n
 	})
 }
+
+/**
+外观数列
+ */
+
+func CountAndSay(n int) string {
+	m := make(map[int]string)
+	m[1] = "1"
+	for i := 2; i < n + 1; i++ {
+		sb := strings.Builder{}
+		var tmp byte
+		var tmpCounter int
+		v := m[i-1]
+		for j := 0; j < len(v); j++ {
+			if tmp == 0 {
+				tmp = v[j]
+				tmpCounter = 1
+			} else if tmp == v[j] {
+				tmpCounter++
+			} else {
+				sb.WriteString(strconv.Itoa(tmpCounter))
+				sb.WriteByte(tmp)
+				tmp = v[j]
+				tmpCounter = 1
+			}
+		}
+
+		sb.WriteString(strconv.Itoa(tmpCounter))
+		sb.WriteByte(tmp)
+
+		m[i] = sb.String()
+	}
+
+	return m[n]
+}
+
+func countAndSay(n int) string {
+	prev := "1"
+	for i := 2; i <= n; i++ {
+		cur := &strings.Builder{}
+		for j, start := 0, 0; j < len(prev); start = j {
+			for j < len(prev) && prev[j] == prev[start] {
+				j++
+			}
+			cur.WriteString(strconv.Itoa(j - start))
+			cur.WriteByte(prev[start])
+		}
+		prev = cur.String()
+	}
+	return prev
+}

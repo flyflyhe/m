@@ -16,3 +16,7 @@ func TestSearch(t *testing.T)  {
 		return arr[i] >= 5
 	}))
 }
+
+func TestCountAndSay(t *testing.T) {
+	fmt.Println(CountAndSay(4))
+}
