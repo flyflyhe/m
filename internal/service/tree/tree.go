@@ -184,3 +184,45 @@ func SearchIndex(arr []int, val int) int {
 	}
 	return -1
 }
+
+func KthSmallest(root *TreeNode, k int) int {
+	var s []int
+	var preFunc func(root *TreeNode)
+	preFunc = func(root *TreeNode) {
+		if root != nil {
+			s = append(s, root.Val)
+			preFunc(root.Left)
+			preFunc(root.Right)
+		}
+	}
+
+	preFunc(root)
+	return GetK(s, k)
+}
+
+func GetK(s []int, k int) int {
+	InsertSort(s)
+	for i, v := range s {
+		if i == k - 1 {
+			return v
+		}
+	}
+
+	return 0
+}
+
+func InsertSort(st []int) {
+	if len(st) <= 1 {
+		return
+	}
+	for i := 1; i < len(st); i++ {
+		back := st[i]
+		j := i - 1
+		for j >= 0 && back < st[j] {
+			st[j+1] = st[j]
+			j--
+		}
+		st[j+1] = back
+	}
+	return
+}

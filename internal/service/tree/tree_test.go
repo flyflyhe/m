@@ -7,6 +7,7 @@ import (
 
 var tree *TreeNode
 var tree2 *TreeNode
+var tree3 *TreeNode
 
 func init()  {
 	tree = &TreeNode{Val: 10}
@@ -14,6 +15,8 @@ func init()  {
 	tree.Right = &TreeNode{Val: 12, Right: &TreeNode{Val: 13}}
 
 	tree2 = &TreeNode{Val: 1}
+
+	tree3 = &TreeNode{Val: 3}
 }
 
 func TestQueueMiddleTree(t *testing.T) {
@@ -39,4 +42,12 @@ func TestIsBalanced(t *testing.T) {
 func TestBuildTree(t *testing.T) {
 	root := BuildTree([]int{3,9,20,15,7}, []int{9,3,15,20,7})
 	fmt.Println(PreOrder(root))
+}
+
+func TestGetK(t *testing.T) {
+	fmt.Println(GetK([]int{1,2,3,4}, 1))
+}
+
+func TestKthSmallest(t *testing.T) {
+	fmt.Println(KthSmallest(tree, 3))
 }
