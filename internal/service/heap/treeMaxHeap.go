@@ -24,7 +24,7 @@ func (this *MaxHeap) GetRoot() *Node {
 
 func (this *MaxHeap) Insert(Key int, val int)  {
 	if this.root == nil {
-		this.root = &Node{Key: Key}
+		this.root = &Node{Key: Key, Val: val}
 		this.height = 1
 		this.num = 1
 	} else {
@@ -47,10 +47,11 @@ func (this *MaxHeap) Remove() (int, int)  {
 	val := root.Val
 
 	s := PreOrder(root)
-	tmpKey := s[len(s)-1]
+	tmpKey, tmpVal := s[len(s)-2], s[len(s)-1]
 	head := &Node{Left: root}
 	delKey(head, tmpKey)
 	root.Key = tmpKey
+	root.Val = tmpVal
 	rebuildTop(root)
 
 	this.num--
