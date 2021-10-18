@@ -20,3 +20,7 @@ func TestSearch(t *testing.T)  {
 func TestCountAndSay(t *testing.T) {
 	fmt.Println(CountAndSay(4))
 }
+
+func TestFindComplement(t *testing.T) {
+	fmt.Println(FindComplement(5))
+}

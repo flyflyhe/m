@@ -237,3 +237,25 @@ func addOperators(num string, target int) (ans []string) {
 	backtrack(make([]byte, 0, n*2-1), 0, 0, 0)
 	return
 }
+
+/**
+476:数字的补数
+ */
+
+func FindComplement(num int) int {
+	s := -1
+	for i := 31; i >= 0; i-- {
+		if ((num >> i) & 1) != 0 {
+			s = i
+			break
+		}
+	}
+
+	ans := 0
+	for i := 0; i < s; i++ {
+		if ((num >> i) & 1) == 0 {
+			ans |= 1 << i
+		}
+	}
+	return ans
+}

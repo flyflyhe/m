@@ -3,7 +3,6 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/shopspring/decimal"
 )
 
 type Handler interface {
@@ -57,14 +56,14 @@ func InterfaceFunc() {
 var src string
 
 func main() {
-	decimal.DivisionPrecision = 2
-	d1 := decimal.NewFromFloat(0.1).Add(decimal.NewFromFloat(0.2))
-	fmt.Println(d1.String()) // output: "0.6666666666666667"\
-	var a float64
-	var b float64
-	a = 0.1
-	b = 0.2
-	fmt.Println(a + b)
+	//decimal.DivisionPrecision = 2
+	//d1 := decimal.NewFromFloat(0.1).Add(decimal.NewFromFloat(0.2))
+	//fmt.Println(d1.String()) // output: "0.6666666666666667"\
+	//var a float64
+	//var b float64
+	//a = 0.1
+	//b = 0.2
+	//fmt.Println(a + b)
 }
 
 func testAbs()  {
