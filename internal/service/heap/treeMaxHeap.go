@@ -22,7 +22,7 @@ func (this *MaxHeap) GetRoot() *Node {
 	return this.root
 }
 
-func (this *MaxHeap) Insert(Key int)  {
+func (this *MaxHeap) Insert(Key int, val int)  {
 	if this.root == nil {
 		this.root = &Node{Key: Key}
 		this.height = 1
@@ -30,9 +30,9 @@ func (this *MaxHeap) Insert(Key int)  {
 	} else {
 		if this.num == int(math.Pow(float64(2), float64(this.height-1))) {
 			this.height++
-			insert(this.root, Key, this.height - 1)
+			insert(this.root, Key, val, this.height - 1)
 		} else {
-			insert(this.root, Key, this.height - 1)
+			insert(this.root, Key, val, this.height - 1)
 		}
 		this.num++
 	}
@@ -60,13 +60,13 @@ func (this *MaxHeap) Remove() (int, int)  {
 	return key, val
 }
 
-func insert(root *Node, Key int, height int) bool  {
+func insert(root *Node, Key int, val int, height int) bool  {
 	if height == 1 {
 		if root.Left == nil {
-			root.Left = &Node{Key: Key,Parent: root}
+			root.Left = &Node{Key: Key,Parent: root, Val: val}
 			rebuild(root.Left)
 		} else if root.Right == nil {
-			root.Right = &Node{Key: Key,Parent: root}
+			root.Right = &Node{Key: Key,Parent: root, Val: val}
 			rebuild(root.Right)
 		} else {
 			return false
@@ -74,10 +74,10 @@ func insert(root *Node, Key int, height int) bool  {
 
 		return true
 	}
-	if insert(root.Left, Key, height-1) {
+	if insert(root.Left, Key, val, height-1) {
 		return true
 	}
-	return insert(root.Right, Key, height-1)
+	return insert(root.Right, Key, val, height-1)
 }
 
 func rebuildTop(root *Node)  {
@@ -121,6 +121,7 @@ func rebuild(root *Node)  {
 	}
 	if root.Parent.Key < root.Key {
 		root.Parent.Key, root.Key = root.Key, root.Parent.Key
+		root.Parent.Val, root.Val = root.Val, root.Parent.Val
 		rebuild(root.Parent)
 	}
 }
@@ -152,6 +153,7 @@ func PreOrder(root *Node) []int {
 	var ret []int
 	if p != nil {
 		ret = append(ret, p.Key)
+		ret = append(ret, p.Val)
 		if p.Left != nil {
 			ret = append(ret, PreOrder(p.Left)...)
 		}
