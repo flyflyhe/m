@@ -23,3 +23,7 @@ func TestMaxHeap(t *testing.T)  {
 	fmt.Println(maxHeap.Remove())
 	fmt.Println(PreOrder(maxHeap.GetRoot()))
 }
+
+func TestTopKFrequent(t *testing.T) {
+	fmt.Println(TopKFrequent([]int{1,1,1,2,2,2,3,3,3}, 3))
+}

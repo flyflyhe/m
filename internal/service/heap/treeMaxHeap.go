@@ -1,6 +1,7 @@
 package heap
 
 import (
+	"fmt"
 	"math"
 )
 
@@ -49,7 +50,7 @@ func (this *MaxHeap) Remove() (int, int)  {
 	s := PreOrder(root)
 	tmpKey, tmpVal := s[len(s)-2], s[len(s)-1]
 	head := &Node{Left: root}
-	delKey(head, tmpKey)
+	delKey(head, tmpKey, tmpVal)
 	root.Key = tmpKey
 	root.Val = tmpVal
 	rebuildTop(root)
@@ -128,22 +129,22 @@ func rebuild(root *Node)  {
 }
 
 
-func delKey(root *Node, key int) {
+func delKey(root *Node, key, val int) {
 	p := root
 	if p != nil {
 		if p.Left != nil {
-			if p.Left.Key == key {
+			if p.Left.Key == key && p.Left.Val == val {
 				p.Left = nil
 			} else {
-				delKey(p.Left, key)
+				delKey(p.Left, key, val)
 			}
 		}
 
 		if p.Right != nil {
-			if p.Right.Key == key {
+			if p.Right.Key == key && p.Right.Val == val {
 				p.Right = nil
 			} else {
-				delKey(p.Right, key)
+				delKey(p.Right, key, val)
 			}
 		}
 	}
@@ -163,6 +164,33 @@ func PreOrder(root *Node) []int {
 			ret = append(ret, PreOrder(p.Right)...)
 		}
 	}
+	return ret
+}
+
+func TopKFrequent(nums []int, k int) []int {
+	m := make(map[int]int)
+	for _, v := range nums {
+		if _, ok := m[v]; ok {
+			m[v]++
+		} else {
+			m[v] = 1
+		}
+	}
+
+	fmt.Println(m)
+	heap := &MaxHeap{}
+	for v, k := range m {
+		heap.Insert(k, v)
+	}
+
+	fmt.Println(PreOrder(heap.GetRoot()))
+	var ret []int
+	for i := 0; i < k; i++ {
+		_, v := heap.Remove()
+		fmt.Println(PreOrder(heap.GetRoot()))
+		ret = append(ret, v)
+	}
+
 	return ret
 }
 
