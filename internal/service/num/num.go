@@ -259,3 +259,32 @@ func FindComplement(num int) int {
 	}
 	return ans
 }
+
+func PlusOne(digits []int) []int {
+	l := len(digits)
+	carry := 1
+	for i := 0; i < l; i++ {
+		if carry == 0 {
+			break
+		} else {
+			index := l-i-1
+			digits[index]++
+			if digits[index] >= 10 {
+				carry = 1
+				digits[index] -= 10
+			} else {
+				carry = 0
+			}
+		}
+	}
+
+	if carry == 1 {
+		tmp := digits[0:]
+		digits = make([]int, 0)
+		digits = append(digits, 1)
+		digits = append(digits, tmp...)
+	}
+
+
+	return digits
+}

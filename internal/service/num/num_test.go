@@ -24,3 +24,8 @@ func TestCountAndSay(t *testing.T) {
 func TestFindComplement(t *testing.T) {
 	fmt.Println(FindComplement(5))
 }
+
+func TestPlusOne(t *testing.T) {
+	fmt.Println(PlusOne([]int{1,2,3}))
+	fmt.Println(PlusOne([]int{9}))
+}

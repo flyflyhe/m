@@ -269,3 +269,82 @@ func PeakIndexInMountainArray(arr []int) int {
 
 	return r
 }
+
+/**
+二维数组的遍历
+ */
+
+func TwoArrayErgodic(s [][]int)  {
+	rows := len(s)
+	columns := len(s[0])
+	totalElements := rows * columns
+	order :=  make([]int, totalElements)
+	vertical := -1
+	horizontal := 1
+	row := 0
+	column := 0
+	for i := 0; i < totalElements; i++ {
+		order[i] = s[row][column]
+		newRow := row + vertical
+		newColumn := column + horizontal
+		if newColumn >= columns {
+			row++
+			vertical = 1
+			horizontal = -1
+		} else if newRow < 0 {
+			column++
+			vertical = 1
+			horizontal = -1
+		} else if newRow >= rows {
+			column++
+			vertical = -1
+			horizontal = 1
+		} else if newColumn < 0 {
+			row++
+			vertical = -1
+			horizontal = 1
+		} else {
+			row = newRow
+			column = newColumn
+		}
+	}
+	fmt.Println(order)
+}
+
+func TwoArrayErgodic2(s [][]int)  {
+	rows := len(s)
+	columns := len(s[0])
+	totalElements := rows * columns
+	order :=  make([]int, totalElements)
+	vertical := -1 // 竖直
+	horizontal := -1 //水平
+	row := 0
+	column := columns - 1
+	for i := 0; i < totalElements; i++ {
+		order[i] = s[row][column]
+		newRow := row + vertical
+		newColumn := column + horizontal
+		if newRow < 0 {
+			column--
+			vertical = 1
+			horizontal = 1
+		} else if newColumn >= columns {
+			row++
+			vertical = -1
+			horizontal = -1
+		} else if newRow >= rows {
+			column--
+			vertical = -1
+			horizontal = -1
+		} else if newColumn < 0 {
+			row++
+			vertical = 1
+			horizontal = 1
+		} else {
+			row = newRow
+			column = newColumn
+		}
+	}
+	fmt.Println(order)
+}
+
