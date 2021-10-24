@@ -348,3 +348,112 @@ func TwoArrayErgodic2(s [][]int)  {
 	fmt.Println(order)
 }
 
+func ShoppingOffers(price []int, special [][]int, needs []int) int {
+	//1.计算原价
+	//2.计算大礼包
+	//3.更具最低价个减去需求单后，递归计算购物单
+	return dfs(price,special,needs)
+
+}
+func dfs(prices []int,specials [][]int,needs []int) int{
+	minPrice:=0
+	//计算原价
+	for i,v:=range needs{
+		minPrice +=prices[i]*v
+	}
+	//计算大礼包
+loop:
+	for _,s:=range specials{
+		newNeeds:=make([]int,len(needs))
+		copy(newNeeds, needs)
+		/**
+		每一个礼包 用一个用两个用n个循环
+		 */
+		for i:=range newNeeds{
+			newNeeds[i]-=s[i]
+			if newNeeds[i]<0{
+				continue loop
+			}
+		}
+		curPrice:=dfs(prices,specials,newNeeds)+s[len(prices)]
+		minPrice =minInt(minPrice,curPrice)
+	}
+	return minPrice
+
+}
+
+func minInt(values ...int)int{
+	result:=math.MaxInt32
+	for _,v:=range values{
+		if v<result{
+			result = v
+		}
+	}
+	return result
+}
+
+func Combine(n, k int) [][]int {
+	var ret [][]int
+	var c []int
+	combineDfs(0, n, k, c, &ret)
+	return ret
+}
+
+/**
+	void backtracking(参数) {
+		if (终止条件) {
+			存放结果;
+			return;
+		}
+
+		for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
+			处理节点;
+			backtracking(路径，选择列表); // 递归
+			回溯，撤销处理结果
+		}
+	}
+ */
+
+func combineDfs(start, n, k int, c []int, ret *[][]int) {
+	if len(c) == k {
+		tmp := make([]int, len(c))
+		copy(tmp, c)
+		*ret = append(*ret, tmp)
+		fmt.Println(tmp)
+		return
+	}
+	for i := start; i < n - (k - len(c)) + 1 ; i++ {
+		c = append(c, i)
+		combineDfs(i + 1, n, k, c, ret)
+		c = c[0:len(c) - 1]
+	}
+}
+
+func CombinationSum3(k int, n int) [][]int {
+	var ret [][]int
+	var path []int
+	combinationSumDfs(1, 10, n, k, path, &ret)
+	return ret
+}
+
+func combinationSumDfs(start, end, n , k int, path []int, ret *[][]int) {
+	if len(path) == k && Sum(path...) == n {
+		tmp := make([]int, k)
+		copy(tmp, path)
+		*ret = append(*ret, tmp)
+		return
+	}
+
+	for i := start; i < end ; i++ {
+		path = append(path, i)
+		combinationSumDfs(i+1, end, n, k, path, ret)
+		path = path[0:len(path)-1]
+	}
+}
+
+func Sum(values... int) (s int) {
+	for _, item := range values {
+		s += item
+	}
+	return
+}
