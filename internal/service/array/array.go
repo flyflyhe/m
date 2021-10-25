@@ -563,14 +563,14 @@ func MaximalRectangle(matrix []string) int {
 }
 
 func MatrixArea(x, y, x1, y1 int, matrix []string) (int, bool) {
-	area := 0
+	area := (x1 - x + 1) * (y1 - y + 1)
 	result := true
 	for row := x ; row <= x1; row++ {
 		for col := y ; col <= y1; col++ {
 			if matrix[row][col] == '0' {
 				result = false
+				break
 			}
-			area++
 		}
 	}
 	return area, result
