@@ -47,3 +47,15 @@ func TestCombine(t *testing.T) {
 func TestCombinationSum3(t *testing.T) {
 	fmt.Println(CombinationSum3(3, 7))
 }
+
+func TestGenerateMatrix(t *testing.T) {
+	fmt.Println(GenerateMatrix(3))
+	fmt.Println(GenerateMatrix(4))
+}
+
+func TestMaximalRectangle(t *testing.T) {
+	//fmt.Println(MaximalRectangle([]string{"10100","10111","11111","10010"}))
+	//fmt.Println(MaximalRectangle([]string{}))
+	//fmt.Println(MaximalRectangle([]string{"11111111","11111110","11111110","11111000","01111000"}))
+	fmt.Println(MaximalRectangle([]string{"01101","11010","01110","11110","11111","00000"}))
+}

@@ -457,3 +457,121 @@ func Sum(values... int) (s int) {
 	}
 	return
 }
+
+func GenerateMatrix(n int) [][]int {
+	cols := n
+	rows := n
+	matrix := make([][]int, n)
+	for i := 0; i < rows; i++ {
+		matrix[i] = make([]int, n)
+	}
+	row := 0
+	col := -1
+	moveArr := [][]int {
+		{0, 1}, //向右
+		{1, 0}, //向下
+		{0, -1}, //向左
+		{-1, 0}, //向上
+	}
+	direction := 0
+	for i := 1; i <= cols * rows; i++ {
+		row = row + moveArr[direction][0]
+		col = col + moveArr[direction][1]
+
+		//fmt.Println("row",row, "col", col)
+		nextRow := row + moveArr[direction][0]
+		nextCol := col + moveArr[direction][1]
+		if nextRow == cols  {
+			direction++
+		} else if nextCol == rows {
+			direction++
+		} else if nextCol < 0 {
+			direction++
+		} else if matrix[nextRow][nextCol] != 0 {
+			direction++
+		}
+
+		direction = direction & 3
+		matrix[row][col] = i
+	}
+
+	return matrix
+}
+
+func MaximalRectangle(matrix []string) int {
+	area := 0
+	debug := true
+	rows := len(matrix)
+	if rows == 0 {
+		return 0
+	}
+	cols := len(matrix[0])
+	fmt.Println("rows", rows, "cols", cols)
+	rowEnd := rows - 1
+	colEnd := cols - 1
+	/**
+	起点 {x,y} 遍历所有比它大的坐标
+	 */
+	for row := 0; row < rows; row++ {
+		for col := 0; col < cols; col++ {
+			if colEnd > rowEnd {
+				for col1 := colEnd; col1 >= col; col1-- {
+					for row1 := rowEnd; row1 >= row; row1-- {
+						tmp, ok := MatrixArea(row, col, row1, col1, matrix)
+						if ok {
+							if debug {
+								fmt.Println([]int{row, col, row1, col1})
+								fmt.Println(tmp)
+							}
+
+							if tmp > area {
+								area = tmp
+							}
+						} else {
+							if tmp <= area {
+								goto next1
+							}
+						}
+					}
+					next1:
+				}
+			} else {
+				for row1 := rowEnd; row1 >= row; row1-- {
+					for col1 := colEnd; col1 >= col; col1-- {
+						tmp, ok := MatrixArea(row, col, row1, col1, matrix)
+						if ok {
+							if debug {
+								fmt.Println([]int{row, col, row1, col1})
+								fmt.Println(tmp)
+							}
+							if tmp > area {
+								area = tmp
+							}
+						} else {
+							if tmp <= area {
+								goto next2
+							}
+						}
+					}
+					next2:
+				}
+			}
+		}
+	}
+
+	return area
+}
+
+func MatrixArea(x, y, x1, y1 int, matrix []string) (int, bool) {
+	area := 0
+	result := true
+	for row := x ; row <= x1; row++ {
+		for col := y ; col <= y1; col++ {
+			if matrix[row][col] == '0' {
+				result = false
+			}
+			area++
+		}
+	}
+	return area, result
+}
