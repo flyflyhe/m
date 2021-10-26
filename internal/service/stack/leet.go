@@ -49,3 +49,41 @@ func dailyTemperatures(temperatures []int) []int {
 	}
 	return ret
 }
+
+func LargestRectangleArea(heights []int) int {
+	stack := make([]int, 0)
+	area := 0
+	for i, v := range heights {
+		for len(stack) > 0 && v < heights[stack[len(stack) - 1]] {
+			hIndex := stack[len(stack) - 1]
+			stack = stack[:len(stack) - 1]
+			startIndex := -1
+			if len(stack) > 0 {
+				startIndex = stack[len(stack)-1]
+			}
+			h := heights[hIndex]
+			w := i - startIndex - 1
+			tmpArea := h * w
+			if tmpArea > area {
+				area = tmpArea
+			}
+		}
+		stack = append(stack, i)
+	}
+
+	for len(stack) > 0 {
+		hIndex := stack[len(stack) - 1]
+		stack  = stack[:len(stack) - 1]
+		startIndex := -1
+		if len(stack) > 0 {
+			startIndex = stack[len(stack)-1]
+		}
+		h := heights[hIndex]
+		w := len(heights) - startIndex - 1
+		tmpArea := h * w
+		if tmpArea > area {
+			area = tmpArea
+		}
+	}
+	return area
+}

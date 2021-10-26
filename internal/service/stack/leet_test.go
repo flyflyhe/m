@@ -12,3 +12,7 @@ func TestValidateStackSequences(t *testing.T) {
 	fmt.Println(ValidateStackSequences(pushed, []int{4,3,5,1,2}))
 	fmt.Println(ValidateStackSequences([]int{1, 0}, []int{1, 0}))
 }
+
+func TestLargestRectangleArea(t *testing.T) {
+	fmt.Println(LargestRectangleArea([]int{2,4}))
+}
