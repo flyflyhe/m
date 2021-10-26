@@ -270,3 +270,19 @@ func PostorderTraversal(root *TreeNode) (res []int) {
 	}
 	return
 }
+
+func PreorderTraversal(root *TreeNode) (res []int) {
+	var stk []*TreeNode
+	for root != nil || len(stk) > 0 {
+		for root != nil {
+			res = append(res, root.Val)
+			stk = append(stk, root)
+			root = root.Left
+		}
+
+		root = stk[len(stk) - 1].Right //不需要在回到根节点
+		stk = stk[:len(stk) - 1]
+	}
+
+	return
+}

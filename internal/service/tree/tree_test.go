@@ -55,4 +55,5 @@ func TestKthSmallest(t *testing.T) {
 func TestPostorderTraversalRecursion(t *testing.T) {
 	fmt.Println(PostorderTraversalRecursion(tree))
 	fmt.Println(PostorderTraversal(tree))
+	fmt.Println(PreorderTraversal(tree))
 }
