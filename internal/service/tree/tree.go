@@ -226,3 +226,47 @@ func InsertSort(st []int) {
 	}
 	return
 }
+
+
+func VerifyPostorder(postorder []int) bool {
+	return true
+}
+
+func PostorderTraversalRecursion(root *TreeNode) []int {
+	var ret []int
+
+	var recursion func(*TreeNode, *[]int)
+	recursion = func(node *TreeNode, ret *[]int) {
+		if node != nil {
+			recursion(node.Left, ret)
+			recursion(node.Right, ret)
+			*ret = append(*ret, node.Val)
+		}
+	}
+
+	recursion(root, &ret)
+
+	return ret
+}
+
+func PostorderTraversal(root *TreeNode) (res []int) {
+	var stk []*TreeNode
+	var prev *TreeNode //prev 防止有右子树的情况下出现死循环
+	for root != nil || len(stk) > 0 {
+		for root != nil {
+			stk = append(stk, root)
+			root = root.Left
+		}
+		root = stk[len(stk)-1]
+		stk = stk[:len(stk)-1]
+		if root.Right == nil || root.Right == prev {
+			res = append(res, root.Val)
+			prev = root
+			root = nil
+		} else {
+			stk = append(stk, root)
+			root = root.Right
+		}
+	}
+	return
+}
