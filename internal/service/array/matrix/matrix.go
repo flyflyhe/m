@@ -1,6 +1,9 @@
 package matrix
 
-import "fmt"
+import (
+	"flyflyhe.com/m/internal/service/stack"
+	"fmt"
+)
 
 func Rotate(matrix [][]int)  {
 	rows := len(matrix)
@@ -99,4 +102,33 @@ func SearchMatrix(matrix [][]int, target int) bool {
 	}
 
 	return false
+}
+
+func MaximalRectangle(matrix []string) int {
+	length := len(matrix)
+	if length == 0 {
+		return 0
+	}
+	area := 0
+	height := make([]int, len(matrix[0]))
+	for i := 0; i < length; i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			height[j] = int(matrix[i][j] - '0')
+			if height[j] == 1 {
+				for x := i - 1; x >= 0; x-- {
+					if matrix[x][j] == '1' {
+						height[j]++
+					} else {
+						break
+					}
+				}
+			}
+		}
+		fmt.Println(height)
+		tmpArea := stack.LargestRectangleArea(height)
+		if tmpArea > area {
+			area = tmpArea
+		}
+	}
+	return area
 }

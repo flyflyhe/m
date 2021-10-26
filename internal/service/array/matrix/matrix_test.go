@@ -41,3 +41,7 @@ func TestSearchMatrix(t *testing.T) {
 	matrix = [][]int{{-1}, {-1}}
 	fmt.Println(SearchMatrix(matrix, 21))
 }
+
+func TestMaximalRectangle(t *testing.T) {
+	fmt.Println(MaximalRectangle([]string{"01","01"}))
+}
