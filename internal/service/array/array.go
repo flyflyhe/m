@@ -576,24 +576,36 @@ func MatrixArea(x, y, x1, y1 int, matrix []string) (int, bool) {
 	return area, result
 }
 
-func KSort(nums []int)  {
-	var sort func(s, e int)
+/**
+快速排序
+ */
 
-	sort = func(s, e int) {
-		if s == e {
+func KSort(nums []int)  {
+	var sort func(int, int)
+
+	sort = func(left, right int) {
+		if left > right {
 			return
 		}
-		mid := s
-		for i := s + 1; i < e; i++ {
-			if nums[i] < nums[mid] {
-				nums[mid], nums[i] = nums[i], nums[mid]
-				mid = i
+		tmp := nums[left]
+		l := left
+		r := right
+		for l < r {
+			for l < r && nums[r] >= tmp {
+				r--
+			}
+			for l < r && nums[l] <= tmp {
+				l++
+			}
+			if l < r {
+				nums[l], nums[r] = nums[r], nums[l]
 			}
 		}
-		sort(0, mid)
-		sort(mid + 1, e)
+		nums[left] = nums[l]
+		nums[l] = tmp
+		sort(left, l - 1)
+		sort(l + 1, right)
 	}
 
-
-	sort(0, len(nums))
+	sort(0, len(nums) - 1)
 }
