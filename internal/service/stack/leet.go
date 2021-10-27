@@ -87,3 +87,54 @@ func LargestRectangleArea(heights []int) int {
 	}
 	return area
 }
+
+/**
+删除无用括号
+ */
+
+func removeInvalidParentheses(s string) []string {
+	checkStr := func(s string) (stack []byte, bracketCounter int) {
+		for i := 0; i < len(s); i++ {
+			if s[i] != '(' && s[i] != ')' {
+				continue
+			}
+			bracketCounter++
+			if len(stack) > 0 && s[i] != stack[len(stack) - 1] && s[i] == ')' { //凑对 弹出
+				stack = stack[:len(stack) - 1]
+			} else {
+				stack = append(stack, s[i])
+			}
+		}
+		return
+	}
+	brackets, num := checkStr(s)
+	var ret []string
+	if num == len(brackets) {
+		ret = append(ret, "")
+		return ret
+	}
+	//大于0 说明需要删除的对
+	if len(brackets) > 0 {
+		var path []byte
+		path = append(path, s[:]...)
+		dfs([]byte(s), brackets, path, &ret, checkStr)
+	}
+	return ret
+}
+
+func dfs(s []byte,  brackets []byte, path []byte, ret *[]string, checkStr func(s string) ([]byte, int))  {
+	brackets, _ = checkStr(string(path))
+	if len(brackets) == 0 {
+		*ret = append(*ret, string(path))
+		return
+	}
+
+	for i := 0; i < len(brackets); i++ {
+		for j := 0; j < len(s); j++ {
+			if s[j] == brackets[i] {
+				path = append(path[:j], path[j+1:]...)
+				dfs(s, brackets, path, ret, checkStr)
+			}
+		}
+	}
+}
