@@ -46,3 +46,32 @@ func mergeSort(nums []int, l, r int)  {
 		nums[k + l] = tmp[k]
 	}
 }
+
+func MergeSort(nums []int) []int  {
+	dst := make([]int, len(nums))
+	var sort func([]int, []int, int, int)
+	sort = func(nums, dst []int,  start int, end int) {
+		if start + 1 >= end {
+			return
+		}
+		mid := (start + end) / 2
+		sort(dst, nums, start, mid)
+		sort(dst, nums, mid, end)
+		i := start; j := mid; k := start
+		for i < mid || j < end {
+			if j == end || (i < mid && nums[i] < nums[j]) {
+				dst[k] = nums[i]
+				i++
+			} else {
+				dst[k] = nums[j]
+				j++
+			}
+			k++
+		}
+		fmt.Println(dst)
+	}
+	copy(dst, nums)
+	sort(nums, dst, 0, len(nums))
+	copy(nums, dst)
+	return dst
+}
