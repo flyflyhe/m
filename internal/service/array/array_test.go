@@ -59,3 +59,9 @@ func TestMaximalRectangle(t *testing.T) {
 	//fmt.Println(MaximalRectangle([]string{"11111111","11111110","11111110","11111000","01111000"}))
 	fmt.Println(MaximalRectangle([]string{"01101","11010","01110","11110","11111","00000"}))
 }
+
+func TestKSort(t *testing.T) {
+	nums := []int{5,4,3,2,1}
+	KSort(nums)
+	fmt.Println(nums)
+}
