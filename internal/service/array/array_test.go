@@ -62,6 +62,6 @@ func TestMaximalRectangle(t *testing.T) {
 
 func TestKSort(t *testing.T) {
 	nums := []int{5,4,3,2,1}
-	KSort(nums)
+	KSort2(nums)
 	fmt.Println(nums)
 }

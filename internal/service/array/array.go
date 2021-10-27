@@ -609,3 +609,28 @@ func KSort(nums []int)  {
 
 	sort(0, len(nums) - 1)
 }
+
+func KSort2(nums []int)  {
+	var sort func(int, int)
+	sort = func(start, end int) {
+		if end > start {
+			random := start
+			nums[random], nums[end] = nums[end], nums[random] //把选中的值放入尾部
+
+			p1 := start - 1
+			for i := start; i < end; i++ {
+				if nums[i] < nums[end] {
+					p1++
+					nums[p1], nums[i]  = nums[i], nums[p1]
+				}
+			}
+			//循环结束p1 执行小于random的最后一个值 所以需要++ p1 可能==0 没有值比random 小
+			p1++
+			nums[p1], nums[end] = nums[end], nums[p1]
+
+			sort(start, p1 - 1)
+			sort(p1 + 1, end)
+		}
+	}
+	sort(0, len(nums) - 1)
+}
