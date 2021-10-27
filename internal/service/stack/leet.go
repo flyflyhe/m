@@ -92,7 +92,7 @@ func LargestRectangleArea(heights []int) int {
 删除无用括号
  */
 
-func removeInvalidParentheses(s string) []string {
+func RemoveInvalidParentheses(s string) []string {
 	checkStr := func(s string) (stack []byte, bracketCounter int) {
 		for i := 0; i < len(s); i++ {
 			if s[i] != '(' && s[i] != ')' {
@@ -107,33 +107,56 @@ func removeInvalidParentheses(s string) []string {
 		}
 		return
 	}
-	brackets, num := checkStr(s)
+
+	brackets, _ := checkStr(s)
+
+	//fmt.Println(string(brackets))
+	//fmt.Println(s)
 	var ret []string
-	if num == len(brackets) {
-		ret = append(ret, "")
-		return ret
+	dfs([]byte(s), brackets, &ret, len(brackets), checkStr)
+
+	var newRet []string
+
+	for _, v := range ret {
+		if len(newRet) == 0 {
+			newRet = append(newRet, v)
+		} else {
+			for _, v2 := range newRet {
+				if v2 == v {
+					goto next
+				}
+			}
+			newRet = append(newRet, v)
+		}
+		next:
 	}
-	//大于0 说明需要删除的对
-	if len(brackets) > 0 {
-		var path []byte
-		path = append(path, s[:]...)
-		dfs([]byte(s), brackets, path, &ret, checkStr)
-	}
-	return ret
+
+	return newRet
 }
 
-func dfs(s []byte,  brackets []byte, path []byte, ret *[]string, checkStr func(s string) ([]byte, int))  {
-	brackets, _ = checkStr(string(path))
-	if len(brackets) == 0 {
-		*ret = append(*ret, string(path))
+func dfs(s []byte, brackets []byte, ret *[]string, deep int, checkStr func(s string) ( []byte, int))  {
+
+	if deep == 0 {
+		newS := string(s)
+		a, _ := checkStr(newS)
+		if len(a) == 0 {
+		  	*ret = append(*ret, newS)
+		}
 		return
 	}
 
+	path := make([]byte, len(s))
 	for i := 0; i < len(brackets); i++ {
 		for j := 0; j < len(s); j++ {
 			if s[j] == brackets[i] {
-				path = append(path[:j], path[j+1:]...)
-				dfs(s, brackets, path, ret, checkStr)
+				copy(path, s)
+				path := append(path[:j], path[j+1:]...)
+				var newBrackets []byte
+				if i + 1 < len(brackets) {
+					newBrackets = brackets[i+1:]
+				}
+				//fmt.Println("deep", deep, "i", i, "j", j, "前", string(path), "s", string(s))
+				dfs(path, newBrackets, ret, deep-1, checkStr)
 			}
 		}
 	}

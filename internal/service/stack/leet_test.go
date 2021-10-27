@@ -16,3 +16,13 @@ func TestValidateStackSequences(t *testing.T) {
 func TestLargestRectangleArea(t *testing.T) {
 	fmt.Println(LargestRectangleArea([]int{2,4}))
 }
+
+/**
+40 (
+41 )
+ */
+func TestRemoveInvalidParentheses(t *testing.T) {
+	fmt.Println(RemoveInvalidParentheses("()())()"))
+	fmt.Println(RemoveInvalidParentheses("(a)())()"))
+	fmt.Println(RemoveInvalidParentheses(")("))
+}
