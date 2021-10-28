@@ -288,3 +288,134 @@ func PlusOne(digits []int) []int {
 
 	return digits
 }
+
+/**
+判断一个数 重排后能否是2的幂
+ */
+
+func ReorderedPowerOf2(n int) bool {
+	bytes := []byte(strconv.Itoa(n))
+	m := power2map()
+
+	length := len(bytes)
+
+	var dfs func([]byte, []byte) bool
+
+	dfs = func(s []byte,  path []byte)  bool {
+		if len(path) == length {
+			if _, ok := m[string(path)]; ok {
+				return true
+			}
+			return false
+		}
+		for j := 0; j < len(s); j++ { //深度
+			path = append(path, s[j])
+
+			s1 := make([]byte, len(s))
+			copy(s1, s)
+			if j + 1 < len(s) {
+				s1 = append(s1[0:j], s1[j+1:]...)
+			} else {
+				s1 = s1[0:j]
+			}
+
+			//fmt.Println("s", string(s), "s1", string(s1))
+
+			if dfs(s1, path) {
+				return true
+			}
+
+			path = path[:len(path) - 1]
+		}
+
+		return false
+	}
+
+	return  dfs(bytes, []byte{})
+}
+
+func power2map() map[string]bool {
+	m := make(map[string]bool)
+	for i := 0; i <= 30; i++ {
+		m[strconv.FormatInt(int64(math.Pow(float64(2), float64(i))), 10)] = true
+	}
+	return m
+}
+
+func cnt2power(n string) [10]int {
+	var cnt [10]int
+	for i := 0; i < len(n); i++ {
+		cnt[(n[i] - '0') % 10]++
+	}
+
+	return cnt
+}
+
+func Arrangement(num int) []string {
+	bytes := []byte(strconv.Itoa(num))
+	length := len(bytes)
+
+	var ret []string
+	var dfs func([]byte, []byte)
+	dfs = func(s []byte,  path []byte)  {
+		if len(path) == length {
+			ret = append(ret, string(path))
+			return
+		}
+		for j := 0; j < len(s); j++ { //深度
+			path = append(path, s[j])
+
+			s1 := make([]byte, len(s))
+			copy(s1, s)
+			if j + 1 < len(s) {
+				s1 = append(s1[0:j], s1[j+1:]...)
+			} else {
+				s1 = s1[0:j]
+			}
+
+			//fmt.Println("s", string(s), "s1", string(s1))
+
+			dfs(s1, path)
+
+			path = path[:len(path) - 1]
+		}
+	}
+
+	dfs(bytes, []byte{})
+	return ret
+}
+
+func Permute(nums []int) [][]int {
+	if len(nums) == 0 {
+		return nil
+	}
+	length := len(nums)
+	var ret [][]int
+	var dfs func([]int, []int)
+	dfs = func(s []int,  path []int)  {
+		if len(path) == length {
+			newPath := make([]int, length)
+			copy(newPath, path)
+			ret = append(ret, newPath)
+			return
+		}
+		for j := 0; j < len(s); j++ { //深度
+			path = append(path, s[j])
+			s1 := make([]int, len(s))
+			copy(s1, s)
+			if j + 1 < len(s) {
+				s1 = append(s1[0:j], s1[j+1:]...)
+			} else {
+				s1 = s1[0:j]
+			}
+
+			dfs(s1, path)
+
+			path = path[:len(path) - 1]
+		}
+	}
+
+	dfs(nums, []int{})
+	return ret
+}
+

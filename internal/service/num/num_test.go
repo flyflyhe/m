@@ -29,3 +29,20 @@ func TestPlusOne(t *testing.T) {
 	fmt.Println(PlusOne([]int{1,2,3}))
 	fmt.Println(PlusOne([]int{9}))
 }
+
+func TestReorderedPowerOf2(t *testing.T) {
+	fmt.Println(ReorderedPowerOf2(1))
+	fmt.Println(ReorderedPowerOf2(10))
+	fmt.Println(ReorderedPowerOf2(16))
+	fmt.Println(ReorderedPowerOf2(46))
+}
+
+func TestArrangement(t *testing.T) {
+	fmt.Println(Arrangement(124))
+	fmt.Println(Arrangement(1892))
+}
+
+func TestPermute(t *testing.T) {
+	fmt.Println(Permute([]int{5,4,6,2}))
+	fmt.Println(Arrangement(5462))
+}
