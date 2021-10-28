@@ -75,3 +75,32 @@ func MergeSort(nums []int) []int  {
 	copy(nums, dst)
 	return dst
 }
+
+func MergeSort2(nums []int)  {
+	length := len(nums)
+	dst := make([]int, length)
+
+	for seg := 1; seg < length; seg += seg {
+		for start := 0; start < length; start += seg * 2 {
+			end := min(start + seg * 2, length)
+			mid := min(start + seg, length)
+			fmt.Println("seg", seg, "start", start, "mid", mid, "end", end)
+			i := start; j := mid; k := start
+			for i < mid || j < end {
+				if j == end || (i < mid && nums[i] < nums[j]) {
+					dst[k] = nums[i]
+					i++
+				} else {
+					dst[k] = nums[j]
+					j++
+				}
+				k++
+			}
+			fmt.Println(dst)
+		}
+		for i := 0; i < length; i++ {
+			nums[i] = dst[i]
+		}
+	}
+	copy(nums, dst)
+}
