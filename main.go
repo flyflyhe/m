@@ -57,14 +57,12 @@ var src string
 
 func main() {
 
-	s := []int{1,2,3, 4,5}
-	fmt.Println(s)
-	s1 := make([]int, len(s))
-	copy(s1, s)
-	s1 = append(s1[0:2], s1[3:]...)
+	s :=  "abcd"
 
-	fmt.Println(s1)
-	fmt.Println(s)
+	fmt.Println(s[2:])
+	fmt.Println(s[2:])
+	fmt.Println(s[2:])
+	fmt.Println(s[2:])
 }
 
 func testAbs()  {
