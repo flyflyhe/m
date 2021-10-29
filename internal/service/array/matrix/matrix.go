@@ -132,3 +132,34 @@ func MaximalRectangle(matrix []string) int {
 	}
 	return area
 }
+
+
+func isSelfCrossing(distance []int) bool {
+	m := make(map[[2]int]int)
+
+	m[[2]int{0, 0}] = 0
+	direction := [4][]int{
+		{0, 1},
+		{-1, 0},
+		{0, -1},
+		{1, 0},
+	}
+	row := 0
+	col := 0
+	for i := 0; i < len(distance); i++ {
+		n := distance[i]
+		for j := 0; j < n; j++ {
+			di := i % 4
+			row += direction[di][0]
+			col += direction[di][1]
+
+			if _, ok := m[[2]int{row, col}]; ok {
+				return true
+			} else {
+				m[[2]int{row, col}] = 0
+			}
+		}
+	}
+
+	return false
+}
