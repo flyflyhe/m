@@ -286,3 +286,42 @@ func PreorderTraversal(root *TreeNode) (res []int) {
 
 	return
 }
+
+/**
+树的层序遍历
+ */
+
+func levelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return nil
+	}
+	arr := make([][]int, TreeHeight(root))
+	queue := list.New()
+	level := 0
+	queue.PushBack(root)
+	for queue.Len() > 0 {
+		eleSlice := []*list.Element{}
+		for queue.Len() > 0 {
+			ele := queue.Front()
+			eleSlice = append(eleSlice, ele)
+			queue.Remove(ele)
+		}
+
+		for i := 0; i < len(eleSlice); i++ {
+			node := eleSlice[i].Value.(*TreeNode)
+			if node.Left != nil {
+				queue.PushBack(node.Left)
+			}
+			if node.Right != nil {
+				queue.PushBack(node.Right)
+			}
+
+			if arr[level] == nil {
+				arr[level] = make([]int, 0)
+			}
+			arr[level] = append(arr[level], node.Val)
+		}
+	}
+
+	return arr
+}
