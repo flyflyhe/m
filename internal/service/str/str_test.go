@@ -21,3 +21,8 @@ func TestFindRepeatedDnaSequences(t *testing.T) {
 	s := "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
 	fmt.Println(FindRepeatedDnaSequences(s))
 }
+
+func TestConvert(t *testing.T) {
+	fmt.Println(Convert("PAYPALISHIRING", 3))
+	fmt.Println(Convert("AB", 1))
+}

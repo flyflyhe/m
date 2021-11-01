@@ -59,6 +59,7 @@ func main() {
 
 	s :=  "abcd"
 
+	fmt.Println(s[1:3])
 	fmt.Println(s[2:])
 	fmt.Println(s[2:])
 	fmt.Println(s[2:])

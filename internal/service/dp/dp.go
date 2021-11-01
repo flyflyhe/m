@@ -1,5 +1,7 @@
 package dp
 
+import "sort"
+
 /**
 0 --> 0 --> 0
 1 --> 1 --> 1
@@ -59,12 +61,12 @@ func fibDp(n int) int {
 
 func minCostClimbingStairs(cost []int) int {
 	length := len(cost)
-	dp := make([]int, length + 1)
+	dp := make([]int, length+1)
 	dp[0] = 0
 	dp[1] = 0
 
 	for i := 2; i <= length; i++ {
-		if dp[i-1] + cost[i-1] > dp[i-2] + cost[i-2] {
+		if dp[i-1]+cost[i-1] > dp[i-2]+cost[i-2] {
 			dp[i] = dp[i-2] + cost[i-2]
 		} else {
 			dp[i] = dp[i-1] + cost[i-1]
@@ -72,4 +74,51 @@ func minCostClimbingStairs(cost []int) int {
 	}
 
 	return dp[length]
+}
+
+func _rob(nums []int) int {
+	first, second := nums[0], max(nums[0], nums[1])
+	for _, v := range nums[2:] {
+		first, second = second, max(first+v, second)
+	}
+	return second
+}
+
+func rob(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	if n == 2 {
+		return max(nums[0], nums[1])
+	}
+	return max(_rob(nums[:n-1]), _rob(nums[1:]))
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+
+	return b
+}
+
+func deleteAndEarn(nums []int) int {
+	m := make(map[int]int)
+	for i := 0; i < len(nums); i++ {
+		if _, ok := m[nums[i]]; ok {
+			m[nums[i]]++
+		} else {
+			m[nums[i]] = 1
+		}
+	}
+
+	result := make([]int, len(m))
+	for k, _ := range m {
+		result = append(result, k)
+	}
+
+	sort.Ints(result)
+
+	return 1
 }
