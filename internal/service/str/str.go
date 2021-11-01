@@ -1,6 +1,7 @@
 package str
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -143,3 +144,42 @@ func FindRepeatedDnaSequences(s string) []string {
 	return ret
 }
 
+/**
+Z字形变换
+ */
+
+func Convert(s string, numRows int) string {
+	if numRows == 1 {
+		return s
+	}
+	row := -1
+	col := 0
+	direction := [2][2]int{
+		{1, 0},
+		{-1, 1},
+	}
+	directionIndex := 0
+	matrix := make([][]byte, numRows)
+	for i := 0; i < len(s); i++ {
+		row +=  direction[directionIndex][0]
+		col += direction[directionIndex][1]
+		matrix[row] = append(matrix[row], s[i])
+		if row == numRows - 1 || (row == 0 && col != 0 ) {
+			if directionIndex == 0 {
+				directionIndex = 1
+			} else {
+				directionIndex = 0
+			}
+		}
+	}
+
+	fmt.Println(matrix)
+
+	str := strings.Builder{}
+	for i := 0; i < numRows; i++ {
+		fmt.Println(string(matrix[i]))
+		str.WriteString(string(matrix[i]))
+	}
+
+	return str.String()
+}
