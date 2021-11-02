@@ -1,6 +1,9 @@
 package dp
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 /**
 0 --> 0 --> 0
@@ -138,4 +141,77 @@ func longestPalindrome(s string) string {
 	}
 
 	return ans
+}
+
+/**
+55:跳跃游戏
+https://leetcode-cn.com/problems/jump-game/
+ */
+
+func canJump(nums []int) bool {
+	length := len(nums)
+	if length <= 1 {
+		return true
+	}
+	//dp[i] = dp[i-2] = nums[i-2] > 2, dp[i-3] = nums[i-3] > 3, dp[i-1] = nums[i-1] > 1
+	dp := make([]bool, length)
+	dp[0] = true
+
+	check := func(i, step int) bool {
+		for j := i ;j >= 0; j-- {
+			if dp[j] && nums[j] + j >= step {
+				return true
+			}
+		}
+		return false
+	}
+
+	for i := 1; i < length; i++ {
+		if check(i-1, i) {
+			dp[i] = true
+		}
+	}
+
+	return dp[length-1]
+}
+
+func canJump2(nums []int) bool {
+	maxStep := 0
+
+	for i, v := range nums {
+		if i > maxStep{
+			return false
+		}
+		maxStep = max(i+v,maxStep)
+		fmt.Println("max", maxStep)
+	}
+	return true
+}
+
+/**
+45:跳跃游戏2
+ */
+
+func jump(nums []int) int {
+	length := len(nums)
+	if length <= 1 {
+		return 0
+	}
+	dp := make([]int, length)
+	dp[0] = 0
+
+	check := func(step int) int {
+		for j := 0 ;j < step; j++ {
+			if nums[j] + j >= step {
+				return dp[j] + 1
+ 			}
+		}
+		return -1
+	}
+
+	for i := 1; i < length; i++ {
+		dp[i] = check(i)
+	}
+
+	return dp[length-1]
 }
