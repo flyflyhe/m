@@ -105,3 +105,37 @@ func deleteAndEarn(nums []int) int {
 
 	return 1
 }
+
+/**
+最长回文子串
+
+ */
+
+func longestPalindrome(s string) string {
+	length := len(s)
+	dp := make([][]bool, length)
+	for i := 0; i < length; i++ {
+		dp[i] = make([]bool, length)
+	}
+
+	ans := ""
+	for i := length - 1 ; i >= 0; i-- {
+		for j := i; j < length; j++ {
+			if s[i] == s[j] {
+				if j - i <= 1 { //相邻或相等
+					dp[i][j] = true
+					if j - i + 1 > len(ans) {
+						ans = s[i:j+1]
+					}
+				} else if dp[i+1][j-1] {
+					dp[i][j] = true
+					if j - i + 1 > len(ans) {
+						ans = s[i:j+1]
+					}
+				}
+			}
+		}
+	}
+
+	return ans
+}
