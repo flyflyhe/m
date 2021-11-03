@@ -210,25 +210,24 @@ func canJump2(nums []int) bool {
  */
 
 func jump(nums []int) int {
+	step := 0
+	curDistance := 0 //当前覆盖最远距离
+	nextDistance := 0 //下次覆盖最远距离
+
 	length := len(nums)
-	if length <= 1 {
-		return 0
-	}
-	dp := make([]int, length)
-	dp[0] = 0
-
-	check := func(step int) int {
-		for j := 0 ;j < step; j++ {
-			if nums[j] + j >= step {
-				return dp[j] + 1
- 			}
+	for i, num := range nums {
+		nextDistance = max(nextDistance, num + i)
+		if i == curDistance { //等于边界跳一次
+			if curDistance < length - 1 { //必须判断end点是不是已经在范围内 下一次边界大于长度 跳出 不能在跳 已经跳过了
+				step++
+				curDistance = nextDistance   // 更新当前覆盖最远距离下标（相当于加油了）
+				if curDistance >= length - 1 { // 下一步的覆盖范围已经可以达到终点，结束循环
+					break
+				}
+			} else {
+				break
+			}
 		}
-		return -1
 	}
-
-	for i := 1; i < length; i++ {
-		dp[i] = check(i)
-	}
-
-	return dp[length-1]
+	return step
 }
