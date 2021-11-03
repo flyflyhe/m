@@ -161,3 +161,36 @@ func dfs(s []byte, brackets []byte, ret *[]string, deep int, checkStr func(s str
 		}
 	}
 }
+
+/**
+42: 接雨水
+ */
+
+func Trap(height []int) int {
+	var stack []int
+	length := len(height)
+	area := 0
+	for i := 0; i < length; i++ {
+		for len(stack) > 0 &&  height[stack[len(stack) - 1]] < height[i] {
+			top := stack[len(stack)-1] //小于新加入的值
+			stack = stack[:len(stack)-1]
+			if len(stack) == 0 {
+				break
+			}
+			left := stack[len(stack)-1] //left >= top
+			curWidth := i - left - 1
+			curHeight := min(height[left], height[i]) - height[top]
+			area += curWidth * curHeight
+		}
+		stack = append(stack, i)
+	}
+
+	return area
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
