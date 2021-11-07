@@ -45,3 +45,7 @@ func TestSearchMatrix(t *testing.T) {
 func TestMaximalRectangle(t *testing.T) {
 	fmt.Println(MaximalRectangle([]string{"01","01"}))
 }
+
+func TestMaxCount(t *testing.T) {
+	fmt.Println(MaxCount(3, 3, [][]int{{2,2},{3,3}}))
+}

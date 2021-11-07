@@ -163,3 +163,24 @@ func isSelfCrossing(distance []int) bool {
 
 	return false
 }
+
+/**
+:598
+范围求和
+ */
+
+func MaxCount(m int, n int, ops [][]int) int {
+	a := m
+	b := n
+	for i := 0; i < len(ops); i++ {
+		if ops[i][0] < a {
+			a = ops[i][0]
+		}
+
+		if ops[i][1] < b {
+			b = ops[i][1]
+		}
+	}
+
+	return a * b
+}
