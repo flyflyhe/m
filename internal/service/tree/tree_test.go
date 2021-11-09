@@ -57,3 +57,8 @@ func TestPostorderTraversalRecursion(t *testing.T) {
 	fmt.Println(PostorderTraversal(tree))
 	fmt.Println(PreorderTraversal(tree))
 }
+
+func TestIsSymmetric(t *testing.T) {
+	root := &TreeNode{Val: 1, Left: &TreeNode{Val: 2, Left: &TreeNode{Val: 2}}, Right: &TreeNode{Val: 2, Left: &TreeNode{Val: 2}}}
+	fmt.Println(IsSymmetric(root))
+}

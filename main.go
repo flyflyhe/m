@@ -56,7 +56,6 @@ func InterfaceFunc() {
 var src string
 
 func main() {
-
 	s :=  "abcd"
 
 	fmt.Println(s[1:3])

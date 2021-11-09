@@ -325,3 +325,45 @@ func levelOrder(root *TreeNode) [][]int {
 
 	return arr
 }
+
+/**
+对称二叉树 先根序遍历
+ */
+
+func IsSymmetric(root *TreeNode) bool {
+	left := LeftOrder(root.Left)
+	right := RightOrder(root.Right)
+	fmt.Println("left", left)
+	fmt.Println("right", right)
+	for i, v := range left {
+		if right[i] != v {
+			return false
+		}
+	}
+
+	return true
+}
+
+func RightOrder(root *TreeNode) []int {
+	p := root
+	if p == nil {
+		return []int{-1}
+	}
+	var ret []int
+	ret = append(ret, p.Val)
+	ret = append(ret, RightOrder(p.Right)...)
+	ret = append(ret, RightOrder(p.Left)...)
+	return ret
+}
+
+func LeftOrder(root *TreeNode) []int {
+	p := root
+	if p == nil {
+		return []int{-1}
+	}
+	var ret []int
+	ret = append(ret, p.Val)
+	ret = append(ret, LeftOrder(p.Left)...)
+	ret = append(ret, LeftOrder(p.Right)...)
+	return ret
+}
