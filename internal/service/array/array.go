@@ -655,3 +655,37 @@ func singleNumber(nums []int) []int {
 	}
 	return []int{type1, type2}
 }
+
+/**
+:495 提莫攻击
+ */
+
+func findPoisonedDuration(timeSeries []int, duration int) int {
+	length := len(timeSeries)
+	if length == 0 {
+		return 0
+	}
+	dp := make([]int, length)
+	dp[0] = duration
+	for i := 1; i < length; i++ {
+		dp[i] = dp[i-1] + min(timeSeries[i] - timeSeries[i-1], duration)
+	}
+
+	return dp[length-1]
+}
+
+func findPoisonedDuration2(timeSeries []int, duration int) int {
+	length := len(timeSeries)
+	if length == 0 {
+		return 0
+	}
+
+	prev := duration
+	max := duration
+	for i := 1; i < length; i++ {
+		max = prev + min(timeSeries[i] - timeSeries[i-1], duration)
+		prev = max
+	}
+
+	return max
+}
