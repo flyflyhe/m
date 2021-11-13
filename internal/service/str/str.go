@@ -183,3 +183,35 @@ func Convert(s string, numRows int) string {
 
 	return str.String()
 }
+
+
+func DetectCapitalUse(word string) bool {
+	if len(word) == 1 {
+		return true
+	}
+	firstIsUpper := word[0] < 97 //97 => 'a'
+	secondIsUpper := word[1] < 97
+	if firstIsUpper == false && secondIsUpper == true {
+		return false
+	}
+
+	for i := 2; i < len(word); i++ {
+		if firstIsUpper {
+			if secondIsUpper {
+				if word[i] >= 97 {
+					return false
+				}
+			} else {
+				if word[i] < 97 {
+					return false
+				}
+			}
+		} else {
+			if word[i] < 97 {
+				return false
+			}
+		}
+	}
+
+	return true
+}

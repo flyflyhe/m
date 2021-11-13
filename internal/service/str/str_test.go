@@ -26,3 +26,7 @@ func TestConvert(t *testing.T) {
 	fmt.Println(Convert("PAYPALISHIRING", 3))
 	fmt.Println(Convert("AB", 1))
 }
+
+func TestDetectCapitalUse(t *testing.T) {
+	fmt.Println(DetectCapitalUse("Leetcode"))
+}
