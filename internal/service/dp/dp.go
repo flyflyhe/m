@@ -231,3 +231,70 @@ func jump(nums []int) int {
 	}
 	return step
 }
+
+/**
+剑指offer 103 取硬币
+ */
+
+func CoinChange(coins []int, amount int) int {
+	dp := make([][]int, len(coins))
+	for i := 0; i < len(dp); i++ {
+		dp[i] = make([]int, amount+1)
+		for j := 0; j < amount + 1; j++ {
+			if j == 0 {
+				dp[i][j] = 0
+			} else if i == 0 {
+				if j % coins[0] == 0 {
+					dp[i][j] = j / coins[0]
+				} else {
+					dp[i][j] = -1
+				}
+			} else {
+				dp[i][j] = -1
+			}
+		}
+	}
+
+	fmt.Println(dp)
+
+	for j := 1; j < amount + 1; j++ { //先遍历背包
+		for i := 1; i < len(coins); i++ { //再遍历硬币
+			if dp[i-1][j] == -1 { //如果等于-1 说明凑不成
+				if j >= coins[i] {
+					if dp[i][j - coins[i]] != -1 {
+						dp[i][j] = dp[i][j - coins[i]] + 1
+						continue
+					} else {
+						for k := 2; k < (1 << 30) - 1; k++ {
+							if j >= coins[i] * k {
+								if dp[i][j - coins[i] * k] != -1 {
+									dp[i][j] = dp[i][j - coins[i]] + k
+								}
+							} else {
+								break
+							}
+						}
+					}
+				}
+				dp[i][j] = -1
+			} else {
+				if j >= coins[i] && dp[i][j - coins[i]] != -1{
+					dp[i][j] = min(dp[i-1][j], dp[i][j - coins[i]] + 1)
+				} else {
+					dp[i][j] = dp[i-1][j]
+				}
+			}
+		}
+	}
+
+	fmt.Println(dp)
+	return dp[len(coins)-1][amount]
+}
+
+func min(a, b int) int  {
+	if a > b {
+		return b
+	} else {
+		return a
+	}
+}
