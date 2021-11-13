@@ -191,25 +191,13 @@ func DetectCapitalUse(word string) bool {
 	}
 	firstIsUpper := word[0] < 97 //97 => 'a'
 	secondIsUpper := word[1] < 97
-	if firstIsUpper == false && secondIsUpper == true {
+	if !firstIsUpper && secondIsUpper {
 		return false
 	}
 
 	for i := 2; i < len(word); i++ {
-		if firstIsUpper {
-			if secondIsUpper {
-				if word[i] >= 97 {
-					return false
-				}
-			} else {
-				if word[i] < 97 {
-					return false
-				}
-			}
-		} else {
-			if word[i] < 97 {
-				return false
-			}
+		if secondIsUpper != (word[i] < 97) {
+			return false
 		}
 	}
 
