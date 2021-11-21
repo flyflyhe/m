@@ -396,3 +396,24 @@ func bfs(root *Node) int {
 
 	return ans
 }
+
+func bfs2(root *Node) int {
+	if root == nil {
+		return 0
+	}
+	s := make([]*Node, 0)
+	s = append(s, root)
+	ans := 0
+	for len(s) > 0 {
+		length := len(s)
+		for i := 0; i < length; i++ {
+			n := s[0]
+			for i := 0; i < len(n.Children); i++ {
+				s = append(s, n.Children[i])
+			}
+			s = s[1:]
+		}
+		ans++
+	}
+	return ans
+}
