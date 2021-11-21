@@ -367,3 +367,32 @@ func LeftOrder(root *TreeNode) []int {
 	ret = append(ret, LeftOrder(p.Right)...)
 	return ret
 }
+
+type Node struct {
+	Val int
+	Children []*Node
+}
+
+func bfs(root *Node) int {
+	if root == nil {
+		return 0
+	}
+	s := make([]*Node, 0)
+	s = append(s, root)
+	ans := 0
+	for len(s) > 0 {
+		temp := s
+		s = []*Node{}
+
+		for len(temp) > 0 {
+			n := temp[0]
+			for i := 0; i < len(n.Children); i++ {
+				s = append(s, n.Children[i])
+			}
+			temp = temp[1:]
+		}
+		ans++
+	}
+
+	return ans
+}
