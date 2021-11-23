@@ -137,3 +137,89 @@ func isPartition(s string,startIndex,end int)bool{
 	}
 	return true
 }
+
+func FindLHS(nums []int) int {
+	var dfs func([]int, int, []int, bool, bool)
+	ans := 0
+	length := len(nums)
+
+	dfs = func(nums []int, start int, path []int, up bool, check bool) {
+		if start == length {
+			if len(path) > 1 {
+				if check {
+					c := false
+					for i := 1; i < len(path); i++ {
+						if path[i] != path[0] {
+							c = true
+						}
+					}
+
+					if c {
+						fmt.Println(path)
+						ans = max(ans, len(path))
+					}
+				} else {
+					ans = max(ans, len(path))
+				}
+
+			}
+			return
+		}
+
+		for i := start; i < length; i++ {
+			if len(path) == 0 {
+				path = append(path, nums[i])
+			} else {
+				if up && nums[i] - path[0] == 1 {
+					path = append(path, nums[i])
+					check = false
+				} else if !up &&  nums[i] - path[0] == -1 {
+					path = append(path, nums[i])
+					check = false
+				} else if nums[i] - path[0] == 0 {
+					path = append(path, nums[i])
+				}
+			}
+			dfs(nums, i+1, path, up, check)
+			path = []int{}
+		}
+	}
+
+	dfs(nums, 0, []int{}, false, true)
+	dfs(nums, 0, []int{}, true, true)
+
+	return ans
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	} else {
+		return b
+	}
+}
+
+func findLHS2(nums []int) int {
+	sort.Ints(nums)
+	fmt.Println(nums)
+	ans := 0
+	temp := 0
+	effective := false
+	for i := 0; i < len(nums); i++ {
+		for j := i; j < len(nums); j++ {
+			if nums[j] - nums[i] == 1  {
+				temp++
+				effective = true
+			} else if nums[j] - nums[i] == 0 {
+				temp++
+			}
+		}
+		if effective {
+			ans = max(ans, temp)
+		}
+		temp = 0
+		effective = false
+	}
+
+	return ans
+}
