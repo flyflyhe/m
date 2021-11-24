@@ -419,3 +419,42 @@ func Permute(nums []int) [][]int {
 	return ret
 }
 
+func originalDigits(s string) string {
+	m := make(map[byte]int)
+	for i := 0; i < len(s); i++ {
+		if _, ok := m[s[i]]; !ok {
+			m[s[i]] = 1
+		} else {
+			m[s[i]]++
+		}
+	}
+
+	bytes := []byte{'z', 'u', 'x', 'f', 'r', 'w', 'o', 'v', 'h', 'i'}
+	byteNumMap := map[byte]int{'z':0, 'u':4, 'x':6, 'f':5, 'r':3, 'w':2, 'o':1, 'v':7, 'h':8, 'i':9}
+	byteNumEnMap := map[byte]string{'z':"zero", 'u':"four", 'x':"six", 'f':"five", 'r':"three", 'w':"two", 'o':"one", 'v':"seven", 'h':"eight", 'i':"nine"}
+
+	ret := [10]int{}
+	for _, v := range bytes {
+		num := byteNumMap[v]
+		if n, ok := m[v]; ok {
+			ret[num] = n
+			numEn := byteNumEnMap[v]
+			for i := 0; i < len(numEn); i++ {
+				m[numEn[i]] -= n
+			}
+		}
+	}
+
+	ans := &strings.Builder{}
+	for v, n := range ret {
+		if n > 0 {
+			s := strconv.Itoa(v)
+			for i := 0; i < n; i++ {
+				ans.WriteString(s)
+			}
+		}
+	}
+
+	return ans.String()
+}
+
