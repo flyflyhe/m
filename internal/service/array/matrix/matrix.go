@@ -184,3 +184,62 @@ func MaxCount(m int, n int, ops [][]int) int {
 
 	return a * b
 }
+
+func IsValidSudoku(board [][]byte) bool {
+	for i := 0; i < 9; i++ {
+		m := make(map[byte]int)
+		for j := 0; j < 9; j++ {
+			if board[i][j] != '.' {
+				if _, ok := m[board[i][j]]; ok {
+					return false
+				} else {
+					m[board[i][j]] = 1
+				}
+			}
+		}
+	}
+
+	for i := 0; i < 9; i++ {
+		m := make(map[byte]int)
+		for j := 0; j < 9; j++ {
+			if board[j][i] != '.' {
+				if _, ok := m[board[j][i]]; ok {
+					return false
+				} else {
+					m[board[j][i]] = 1
+				}
+			}
+		}
+	}
+
+	matrix := [][2][2]int{
+		[2][2]int{[2]int{0, 0}, [2]int{2,2}},
+		[2][2]int{[2]int{0, 3}, [2]int{2,5}},
+		[2][2]int{[2]int{0, 6}, [2]int{2,8}},
+		[2][2]int{[2]int{3, 0}, [2]int{5,2}},
+		[2][2]int{[2]int{3, 3}, [2]int{5,5}},
+		[2][2]int{[2]int{3, 6}, [2]int{5,8}},
+		[2][2]int{[2]int{6, 0}, [2]int{8,2}},
+		[2][2]int{[2]int{6, 3}, [2]int{8,5}},
+		[2][2]int{[2]int{6, 6}, [2]int{8,8}},
+	}
+
+	for _, v := range matrix {
+		var m [10]int8
+		for i := v[0][0]; i <= v[1][0]; i++ {
+			for j := v[0][1]; j <= v[1][1]; j++ {
+				val := board[i][j]
+				if val == '.' {
+					continue
+				}
+				if m[val-'0'] == 0 {
+					m[val-'0'] = 1
+				} else {
+					return false
+				}
+			}
+		}
+	}
+
+	return true
+}
