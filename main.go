@@ -2,7 +2,6 @@ package main
 
 import (
 	_ "embed"
-	"encoding/json"
 	"fmt"
 )
 
@@ -57,10 +56,16 @@ func InterfaceFunc() {
 var src string
 
 func main() {
-	a := make([]int, 0)
+	s := make([]int, 0, 5)
+	fmt.Println("len", len(s))
+	fmt.Println("cap", cap(s))
 
-	bytes, _ := json.Marshal(a)
-	fmt.Println(string(bytes))
+	changeSlice(&s)
+	fmt.Println(s)
+}
+
+func changeSlice(s *[]int)  {
+	*s = append(*s, 1)
 }
 
 func setMap(m map[string]int)  {

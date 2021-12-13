@@ -243,3 +243,38 @@ func IsValidSudoku(board [][]byte) bool {
 
 	return true
 }
+
+func maxIncreaseKeepingSkyline(grid [][]int) int {
+	rows := make([]int, len(grid))
+	if len(rows) == 0 {
+		return -1
+	}
+	cols := make([]int, len(grid[0]))
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[i]); j++ {
+			rows[i] = max(rows[i], grid[i][j])
+			cols[j] = max(cols[j], grid[i][j])
+		}
+	}
+
+
+	ans := 0
+	for i := 0; i < len(grid); i++ {
+		for j := 0; j < len(grid[i]); j++ {
+			if rows[i] < cols[j] {
+				ans += rows[i] - grid[i][j]
+			} else {
+				ans += cols[j] - grid[i][j]
+			}
+		}
+	}
+
+	return ans
+}
+
+func max(a, b int) int {
+	if b > a {
+		return b
+	}
+	return a
+}
