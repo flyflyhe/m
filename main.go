@@ -3,6 +3,8 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"sync"
+	"time"
 )
 
 type Handler interface {
@@ -56,12 +58,17 @@ func InterfaceFunc() {
 var src string
 
 func main() {
-	s := make([]int, 0, 5)
-	fmt.Println("len", len(s))
-	fmt.Println("cap", cap(s))
+	wg := sync.WaitGroup{}
+	wg.Add(5)
+	for i := 0; i < 5; i++ {
+		go func() {
+			wg.Done()
+			fmt.Println(i)
+		}()
+	}
 
-	changeSlice(&s)
-	fmt.Println(s)
+	wg.Wait()
+	time.Sleep(time.Second * 5)
 }
 
 func changeSlice(s *[]int)  {

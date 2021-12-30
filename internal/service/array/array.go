@@ -3,6 +3,7 @@ package array
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 func peakIndexInMountainArray(arr []int) int {
@@ -688,4 +689,46 @@ func findPoisonedDuration2(timeSeries []int, duration int) int {
 	}
 
 	return max
+}
+
+/**
+:846 一把顺子
+ */
+
+func isNStraightHand(hand []int, groupSize int) bool {
+	m := make(map[int]int)
+
+	sort.Ints(hand)
+
+	last := -1
+	size := 0
+	start := 0
+	for i := 0; i < len(hand); i++ {
+		v := hand[i]
+		if _, ok := m[i]; ok {
+			continue
+		} else if v == last {
+			continue
+		} else {
+			if last != -1 && v - last != 1 {
+				return false
+			} else {
+				if last == -1 {
+					start = i
+				}
+				m[i] = 1
+				last = v
+				size++
+				if size == groupSize {
+					last = -1
+					size = 0
+					if i - start != groupSize - 1 {
+						i = start
+					}
+				}
+			}
+		}
+	}
+
+	return len(m) == len(hand) && last == -1
 }
