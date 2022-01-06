@@ -203,3 +203,29 @@ func DetectCapitalUse(word string) bool {
 
 	return true
 }
+
+/**
+:71简化路径
+ */
+
+func simplifyPath(path string) string {
+	s := strings.Split(path, "/")
+	var newPath []string
+	for _, v := range s {
+		if v == "." {
+			continue
+		} else if v == ".." {
+			if len(newPath) == 0 {
+				continue
+			} else {
+				newPath = newPath[:len(newPath)-1]
+			}
+		} else if v == "" {
+			continue
+		} else {
+			newPath = append(newPath, v)
+		}
+	}
+
+	return strings.Join(newPath, "/")
+}
