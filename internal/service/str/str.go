@@ -229,3 +229,27 @@ func simplifyPath(path string) string {
 
 	return strings.Join(newPath, "/")
 }
+
+/**
+:1614 括号嵌套的最大深度
+ */
+
+func maxDepth(s string) int {
+	var stack []byte
+
+	max := 0
+
+	for i := 0; i < len(s); i++ {
+		v := s[i]
+		if v == '(' {
+			stack = append(stack, v)
+		} else if v == ')' {
+			if len(stack) > max {
+				max = len(stack)
+			}
+			stack = stack[:len(stack)-1]
+		}
+	}
+
+	return max
+}
