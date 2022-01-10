@@ -3,6 +3,7 @@ package dfs
 import (
 	"fmt"
 	"sort"
+	"strconv"
 )
 
 func Dfs(startVertex int, graph [][]int)  {
@@ -222,4 +223,53 @@ func findLHS2(nums []int) int {
 	}
 
 	return ans
+}
+
+/*
+:306 累加数
+ */
+
+func IsAdditiveNumber(num string) bool {
+	var dfs func(sep int , num string) bool
+
+	dfs = func(sep int, num string) bool {
+		for i := sep; i < len(num) - 1; i++ {
+			for step := 1; step < len(num) - sep; step++ {
+				start, _ := strconv.Atoi(num[:sep+1])
+				next, _ := strconv.Atoi(num[sep+1:sep+step+1])
+				if len(strconv.Itoa(start)) != sep+1 {
+					continue
+				}
+				if len(strconv.Itoa(next)) != step {
+					continue
+				}
+				for j := sep+step+1; j < len(num);  {
+					equal := start + next
+					fmt.Println("start", start, "next", next, "equal", equal, "j", j, "equal", equal)
+
+					if j + len(strconv.Itoa(equal)) <= len(num) {
+						if strconv.Itoa(equal) == num[j:j + len(strconv.Itoa(equal))] {
+							if j + len(strconv.Itoa(equal)) == len(num) {
+								return true
+							}
+							j += len(strconv.Itoa(equal))
+							fmt.Println("nextJ", j)
+							start = next
+							next = equal
+							continue
+						}
+					}
+
+					fmt.Println("break")
+					break
+				}
+			}
+
+			return dfs(i+1, num)
+		}
+
+		return false
+	}
+
+	return dfs(0, num)
 }
