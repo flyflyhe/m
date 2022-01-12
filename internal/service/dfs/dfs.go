@@ -2,6 +2,7 @@ package dfs
 
 import (
 	"fmt"
+	"math"
 	"sort"
 	"strconv"
 )
@@ -272,4 +273,87 @@ func IsAdditiveNumber(num string) bool {
 	}
 
 	return dfs(0, num)
+}
+
+/**
+334 递增的三元子序列
+ */
+
+func IncreasingTriplet(nums []int) bool {
+	var dfs func(start int, path []int, nums []int) bool
+	dfs = func(start int, path []int, nums []int) bool {
+		for i := start; i < len(nums); i++ {
+			for j := start; j < len(nums); j++ {
+				if len(path) == 0 {
+					path = append(path, nums[j])
+				} else if len(path) == 1 {
+					if nums[j] > path[0] {
+						path = append(path, nums[j])
+					}
+				} else if len(path) == 2 {
+					if nums[j] > path[1] {
+						path = append(path, nums[j])
+						break
+					} else if nums[j] > path[0] {
+						if dfs(j + 1, []int{path[0], nums[j]}, nums) {
+							return true
+						}
+					}
+				}
+			}
+
+			if len(path) == 3 {
+				return true
+			}
+			return dfs(i+1, []int{}, nums)
+		}
+
+		return false
+	}
+
+	return dfs(0, []int{}, nums)
+}
+
+func IncreasingTriplet2(nums []int) bool {
+	stacks := make([][]int, 0)
+	for i := 0; i < len(nums); i++ {
+		needNewStack := true
+		fmt.Println(stacks)
+		for j := 0; j < len(stacks); j++ {
+			if stacks[j][len(stacks[j])-1] < nums[i] {
+				needNewStack = false
+				if len(stacks[j]) == 2 {
+					return true
+				}
+				stacks[j] = append(stacks[j], nums[i])
+
+			} else if stacks[j][len(stacks[j])-1] == nums[i] {
+				needNewStack = false
+			} else if len(stacks[j]) > 1 &&  stacks[j][len(stacks[j])-2] < nums[i] {
+				needNewStack = false
+				stacks[j][1] = nums[i]
+			}
+		}
+
+		if needNewStack {
+			stacks = append(stacks, []int{nums[i]})
+		}
+	}
+
+	return false
+}
+
+func IncreasingTriplet3(nums []int) bool {
+	first := math.MaxInt32
+	second := first
+	for _, v :=  range nums {
+		if v <= first {
+			first = v
+		} else if v <= second {
+			second = v
+		} else {
+			return true
+		}
+	}
+	return false
 }

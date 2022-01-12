@@ -19,3 +19,8 @@ func TestIsAdditiveNumber(t *testing.T) {
 	fmt.Println(IsAdditiveNumber("1023"))
 	fmt.Println(IsAdditiveNumber("0235813"))
 }
+
+func TestIncreasingTriplet(t *testing.T) {
+	fmt.Println(IncreasingTriplet3([]int{20,100,10,12,5,13}))
+	fmt.Println(IncreasingTriplet3([]int{1,5,0,4,1,3}))
+}
