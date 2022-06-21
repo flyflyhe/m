@@ -87,6 +87,7 @@ func (lru *Lru) Start() {
 				}
 
 			case <-lru.stop:
+				lru.start = false
 				break
 			default:
 			}
