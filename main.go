@@ -3,6 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
+	"github.com/emirpasic/gods/trees/avltree"
 )
 
 type Handler interface {
@@ -16,7 +17,6 @@ func (f HandlerFunc) Do(k, v interface{}) {
 	f(k, v)
 }
 
-
 func Each(m map[interface{}]interface{}, h Handler) {
 	if m != nil && len(m) > 0 {
 		for k, v := range m {
@@ -29,12 +29,11 @@ func EachFunc(m map[interface{}]interface{}, f func(k, v interface{})) {
 	Each(m, HandlerFunc(f))
 }
 
-
 type welcome string
 
 // Do 如果不用接口型函数 函数名就不能表达确切的含义
 func (w welcome) Do(k, v interface{}) {
-	fmt.Printf("%s,我叫%s,今年%d岁\n", w,k, v)
+	fmt.Printf("%s,我叫%s,今年%d岁\n", w, k, v)
 }
 
 func selfInfo(k, v interface{}) {
@@ -56,19 +55,21 @@ func InterfaceFunc() {
 var src string
 
 func main() {
-	s := "112358"
-	fmt.Println(s[5:6])
+	t := avltree.NewWithIntComparator()
+	t.Put(7, 7)
+	t.Put(9, 9)
+	t.Put(8, 8)
 }
 
-func changeSlice(s *[]int)  {
+func changeSlice(s *[]int) {
 	*s = append(*s, 1)
 }
 
-func setMap(m map[string]int)  {
+func setMap(m map[string]int) {
 	m["abc"] = 1
 }
 
-func testAbs()  {
+func testAbs() {
 	var a int8
 	a = -128
 	fmt.Println(absInt(a))
