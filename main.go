@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	"github.com/emirpasic/gods/trees/avltree"
+	"log"
 )
 
 type Handler interface {
@@ -53,12 +53,12 @@ func InterfaceFunc() {
 
 //go:embed main.go
 var src string
+var i *string
 
 func main() {
-	t := avltree.NewWithIntComparator()
-	t.Put(7, 7)
-	t.Put(9, 9)
-	t.Put(8, 8)
+	if i == nil {
+		log.Println("equal")
+	}
 }
 
 func changeSlice(s *[]int) {
