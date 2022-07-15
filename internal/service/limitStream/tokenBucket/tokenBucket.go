@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+//固定时间的令牌算法
+
 type Token struct {
 	Val  string
 	Time int64
