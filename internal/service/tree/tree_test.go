@@ -8,8 +8,9 @@ import (
 var tree *TreeNode
 var tree2 *TreeNode
 var tree3 *TreeNode
+var tree4 *TreeNode
 
-func init()  {
+func init() {
 	tree = &TreeNode{Val: 10}
 	tree.Left = &TreeNode{Val: 8, Left: &TreeNode{Val: 5}, Right: &TreeNode{Val: 6}}
 	tree.Right = &TreeNode{Val: 12, Right: &TreeNode{Val: 13}}
@@ -17,6 +18,11 @@ func init()  {
 	tree2 = &TreeNode{Val: 1}
 
 	tree3 = &TreeNode{Val: 3}
+	tree4 = &TreeNode{Val: 1, Left: &TreeNode{Val: 0, Left: &TreeNode{Val: 0}}, Right: &TreeNode{Val: 1}}
+}
+
+func Test_pruneTree(t *testing.T) {
+	pruneTree(tree4)
 }
 
 func TestQueueMiddleTree(t *testing.T) {
@@ -40,12 +46,12 @@ func TestIsBalanced(t *testing.T) {
 }
 
 func TestBuildTree(t *testing.T) {
-	root := BuildTree([]int{3,9,20,15,7}, []int{9,3,15,20,7})
+	root := BuildTree([]int{3, 9, 20, 15, 7}, []int{9, 3, 15, 20, 7})
 	fmt.Println(PreOrder(root))
 }
 
 func TestGetK(t *testing.T) {
-	fmt.Println(GetK([]int{1,2,3,4}, 1))
+	fmt.Println(GetK([]int{1, 2, 3, 4}, 1))
 }
 
 func TestKthSmallest(t *testing.T) {

@@ -8,16 +8,72 @@ import (
 )
 
 type TreeNode struct {
-	 Val int
-	 Left *TreeNode
-	 Right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func pruneTree(root *TreeNode) *TreeNode {
+	tapNode(root)
+	DeleteNode(root)
+	if root.Val == -1 {
+		return nil
+	}
+	return root
+}
+
+func DeleteNode(node *TreeNode) {
+	if node == nil {
+		return
+	}
+
+	if node.Left != nil && node.Left.Val == -1 {
+		node.Left = nil
+	} else {
+		DeleteNode(node.Left)
+	}
+
+	if node.Right != nil && node.Right.Val == -1 {
+		node.Right = nil
+	} else {
+		DeleteNode(node.Right)
+	}
+}
+
+func tapNode(node *TreeNode) bool {
+	if node == nil {
+		return true
+	}
+	if node.Val == 1 {
+		tapNode(node.Left)
+		tapNode(node.Right)
+		return false
+	} else {
+		l := tapNode(node.Left)
+		r := tapNode(node.Right)
+
+		if l && r {
+			node.Val = -1
+			return true
+		} else {
+			return false
+		}
+	}
 }
 
 /**
 中根序遍历
- */
+*/
 
-func QueueMiddleTree(root *TreeNode)  {
+func QueueMiddleTree(root *TreeNode) {
 	queue := list.New()
 	MiddleTreeErgodic(root, queue)
 
@@ -40,8 +96,8 @@ func MiddleTreeErgodic(root *TreeNode, queue *list.List) {
 }
 
 /**
-	二叉树的中序遍历
- */
+二叉树的中序遍历
+*/
 
 func InorderTraversal(root *TreeNode) []int {
 	p := root
@@ -91,7 +147,7 @@ func IsBalanced(root *TreeNode) bool {
 		}
 	}
 
-	if num.AbsInt(int64(left - right)) > 1 {
+	if num.AbsInt(int64(left-right)) > 1 {
 		return false
 	}
 
@@ -123,7 +179,7 @@ func TreeHeight(root *TreeNode) int {
 func IsBalanced2(root *TreeNode) bool {
 	left := TreeHeight(root.Left)
 	right := TreeHeight(root.Right)
-	if num.AbsInt(int64(left - right)) > 1 {
+	if num.AbsInt(int64(left-right)) > 1 {
 		return false
 	}
 
@@ -138,7 +194,7 @@ func IsBalanced2(root *TreeNode) bool {
 	return true
 }
 
-func TreeHeight2(root *TreeNode) int  {
+func TreeHeight2(root *TreeNode) int {
 	if root == nil {
 		return 0
 	} else {
@@ -162,7 +218,7 @@ func BuildTree(preorder []int, inorder []int) *TreeNode {
 	root.Val = v
 	index := SearchIndex(inorder, v)
 	log.Println(index, index)
-	left := inorder[:index] //左子树
+	left := inorder[:index]    //左子树
 	right := inorder[index+1:] //右子树
 
 	if len(left) > 0 {
@@ -203,7 +259,7 @@ func KthSmallest(root *TreeNode, k int) int {
 func GetK(s []int, k int) int {
 	InsertSort(s)
 	for i, v := range s {
-		if i == k - 1 {
+		if i == k-1 {
 			return v
 		}
 	}
@@ -226,7 +282,6 @@ func InsertSort(st []int) {
 	}
 	return
 }
-
 
 func VerifyPostorder(postorder []int) bool {
 	return true
@@ -280,8 +335,8 @@ func PreorderTraversal(root *TreeNode) (res []int) {
 			root = root.Left
 		}
 
-		root = stk[len(stk) - 1].Right //不需要在回到根节点
-		stk = stk[:len(stk) - 1]
+		root = stk[len(stk)-1].Right //不需要在回到根节点
+		stk = stk[:len(stk)-1]
 	}
 
 	return
@@ -289,7 +344,7 @@ func PreorderTraversal(root *TreeNode) (res []int) {
 
 /**
 树的层序遍历
- */
+*/
 
 func levelOrder(root *TreeNode) [][]int {
 	if root == nil {
@@ -328,7 +383,7 @@ func levelOrder(root *TreeNode) [][]int {
 
 /**
 对称二叉树 先根序遍历
- */
+*/
 
 func IsSymmetric(root *TreeNode) bool {
 	left := LeftOrder(root.Left)
@@ -369,7 +424,7 @@ func LeftOrder(root *TreeNode) []int {
 }
 
 type Node struct {
-	Val int
+	Val      int
 	Children []*Node
 }
 
