@@ -30,3 +30,7 @@ func TestMinAbsoluteSumDiffViolence2(t *testing.T) {
 	e = append(e, []int{1, 3})
 	assert.Equal(t, e, minimumAbsDifference(arr))
 }
+
+func Test_minSubsequence(t *testing.T) {
+	minSubsequence([]int{4, 3, 10, 9, 8})
+}

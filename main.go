@@ -56,9 +56,16 @@ var src string
 var i *string
 
 func main() {
-	if i == nil {
-		log.Println("equal")
-	}
+	log.Println(fn())
+}
+
+func fn() (r int) {
+
+	defer func() {
+		r = r + 5
+	}()
+
+	return 1
 }
 
 func changeSlice(s *[]int) {

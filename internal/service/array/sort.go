@@ -2,6 +2,7 @@ package array
 
 import (
 	"fmt"
+	"log"
 	"sort"
 )
 
@@ -144,4 +145,68 @@ func minimumAbsDifference(arr []int) [][]int {
 	}
 
 	return result
+}
+
+type IntSlice [][]int
+
+func (x IntSlice) Len() int           { return len(x) }
+func (x IntSlice) Less(i, j int) bool { return x[i][0] < x[j][0] }
+func (x IntSlice) Swap(i, j int)      { x[i][0], x[j][0] = x[j][0], x[i][0] }
+
+func validSquare(p1 []int, p2 []int, p3 []int, p4 []int) bool {
+	p := make(IntSlice, 0)
+	p = append(p, p1, p2, p3, p4)
+	sort.Sort(p)
+
+	return abc(p[0][0], p[1][0]) == abc(p[2][0], p[3][0]) || abc(p[0][0], p[3][0]) == abc(p[1][1], p[2][1])
+}
+
+func abc(a, b int) int {
+	if a > 0 && b < 0 {
+		return a - b
+	} else if a < 0 && b > 0 {
+		return b - a
+	} else {
+		t := a - b
+		if t < 0 {
+			return -t
+		} else {
+			return t
+		}
+	}
+}
+
+func minSubsequence(nums []int) []int {
+	sum := 0
+	for _, v := range nums {
+		sum += v
+	}
+
+	var dfs func([]int, []int)
+	var s [][]int
+	dfs = func(nums []int, tmpS []int) {
+		for i := 0; i < len(nums); i++ {
+			tmpS = append(tmpS, nums[i])
+			var t []int
+			t = append(t, tmpS...)
+			s = append(s, t)
+			for j := i + 1; j < len(nums); j++ {
+				tmpS = append(tmpS, nums[j])
+				var t []int
+				t = append(t, tmpS...)
+				s = append(s, t)
+				if j+1 < len(nums) {
+					dfs(nums[j+1:], tmpS)
+				}
+				tmpS = tmpS[:len(tmpS)-1]
+			}
+			tmpS = tmpS[:len(tmpS)-1]
+		}
+	}
+
+	dfs(nums, []int{})
+	log.Println(s)
+	log.Println(len(s))
+
+	return nil
 }
