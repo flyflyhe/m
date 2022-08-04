@@ -210,3 +210,17 @@ func minSubsequence(nums []int) []int {
 
 	return nil
 }
+
+func Dfs(temp, nums []int, start int) {
+	tmp := make([]int, len(temp))
+	copy(tmp, temp)
+	//res = append(res, tmp)
+	for i := start; i < len(nums); i++ {
+		//if i>start&&nums[i]==nums[i-1]{
+		//	continue
+		//}
+		temp = append(temp, nums[i])
+		Dfs(temp, nums, i+1)
+		temp = temp[:len(temp)-1]
+	}
+}
