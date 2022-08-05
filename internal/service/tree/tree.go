@@ -472,3 +472,17 @@ func bfs2(root *Node) int {
 	}
 	return ans
 }
+
+func depth(node *TreeNode) int {
+	if node == nil {
+		return 0
+	}
+	l := depth(node.Left) + 1
+	r := depth(node.Right) + 1
+
+	if l > r {
+		return l
+	} else {
+		return r
+	}
+}

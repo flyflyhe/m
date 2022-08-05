@@ -2,6 +2,7 @@ package tree
 
 import (
 	"fmt"
+	"log"
 	"testing"
 )
 
@@ -67,4 +68,9 @@ func TestPostorderTraversalRecursion(t *testing.T) {
 func TestIsSymmetric(t *testing.T) {
 	root := &TreeNode{Val: 1, Left: &TreeNode{Val: 2, Left: &TreeNode{Val: 2}}, Right: &TreeNode{Val: 2, Left: &TreeNode{Val: 2}}}
 	fmt.Println(IsSymmetric(root))
+}
+
+func Test_depth(t *testing.T) {
+	log.Println(depth(tree))
+	log.Println(depth(tree2))
 }
