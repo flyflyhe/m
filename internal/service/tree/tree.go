@@ -5,6 +5,7 @@ import (
 	"flyflyhe.com/m/internal/service/num"
 	"fmt"
 	"log"
+	"strconv"
 )
 
 type TreeNode struct {
@@ -485,4 +486,41 @@ func depth(node *TreeNode) int {
 	} else {
 		return r
 	}
+}
+
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func findDuplicateSubtrees(root *TreeNode) (ans []*TreeNode) {
+	m := make(map[string]*TreeNode)
+
+	var dfs func(*TreeNode) string
+	dfs = func(node *TreeNode) string {
+		if node == nil {
+			return ""
+		}
+		key := ""
+		key += strconv.Itoa(node.Val)
+		key += "/"
+		key += dfs(node.Left)
+		key += "/"
+		key += dfs(node.Right)
+		key += "/"
+
+		if _, ok := m[key]; ok {
+			ans = append(ans, node)
+		} else {
+			m[key] = node
+		}
+		return key
+	}
+
+	dfs(root)
+
+	return
 }
