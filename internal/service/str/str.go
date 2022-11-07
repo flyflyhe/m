@@ -29,9 +29,10 @@ func LicenseKeyFormatting(s string, k int) string {
 	return strings.TrimLeft(ReverseStr(sb.String()), "-")
 }
 
-/**
+/*
+*
 不用trim
- */
+*/
 func licenseKeyFormatting(s string, k int) string {
 	bs := []byte(s)
 	l := len(bs)
@@ -41,7 +42,7 @@ func licenseKeyFormatting(s string, k int) string {
 		if bs[i] == '-' {
 			continue
 		}
-		if counter == k && counter >=0  {
+		if counter == k && counter >= 0 {
 			counter = 0
 			sb.WriteByte('-')
 		}
@@ -56,7 +57,7 @@ func licenseKeyFormatting(s string, k int) string {
 	return Reverse(sb.String())
 }
 
-func ReverseStr(str string) string  {
+func ReverseStr(str string) string {
 	result := ""
 	for i := 0; i < len(str); i++ {
 		result = string(str[i]) + result
@@ -106,7 +107,7 @@ func CountSegments(s string) int {
 	return words
 }
 
-func CountSegments2(s string) int  {
+func CountSegments2(s string) int {
 	ans := 0
 	length := len(s)
 	for i := 0; i < length; {
@@ -114,7 +115,7 @@ func CountSegments2(s string) int  {
 			i++
 			continue
 		}
-		for  i < length  && s[i] != ' '{
+		for i < length && s[i] != ' ' {
 			i++
 		}
 
@@ -123,20 +124,21 @@ func CountSegments2(s string) int  {
 	return ans
 }
 
-/**
+/*
+*
 找出重复字符串
- */
+*/
 func FindRepeatedDnaSequences(s string) []string {
 	m := make(map[string]int)
 	var str string
 	ret := make([]string, 0)
-	for i := 0; i < len(s) && i + 9 < len(s); i++ {
-		str = s[i:i+10]
+	for i := 0; i < len(s) && i+9 < len(s); i++ {
+		str = s[i : i+10]
 		if v, ok := m[str]; ok {
 			if v == 1 {
 				ret = append(ret, str)
 			}
-			m[str] = v+1
+			m[str] = v + 1
 		} else {
 			m[str] = 1
 		}
@@ -146,7 +148,7 @@ func FindRepeatedDnaSequences(s string) []string {
 
 /**
 Z字形变换
- */
+*/
 
 func Convert(s string, numRows int) string {
 	if numRows == 1 {
@@ -161,10 +163,10 @@ func Convert(s string, numRows int) string {
 	directionIndex := 0
 	matrix := make([][]byte, numRows)
 	for i := 0; i < len(s); i++ {
-		row +=  direction[directionIndex][0]
+		row += direction[directionIndex][0]
 		col += direction[directionIndex][1]
 		matrix[row] = append(matrix[row], s[i])
-		if row == numRows - 1 || (row == 0 && col != 0 ) {
+		if row == numRows-1 || (row == 0 && col != 0) {
 			if directionIndex == 0 {
 				directionIndex = 1
 			} else {
@@ -183,7 +185,6 @@ func Convert(s string, numRows int) string {
 
 	return str.String()
 }
-
 
 func DetectCapitalUse(word string) bool {
 	if len(word) == 1 {
@@ -206,7 +207,7 @@ func DetectCapitalUse(word string) bool {
 
 /**
 :71简化路径
- */
+*/
 
 func simplifyPath(path string) string {
 	s := strings.Split(path, "/")
@@ -232,7 +233,7 @@ func simplifyPath(path string) string {
 
 /**
 :1614 括号嵌套的最大深度
- */
+*/
 
 func maxDepth(s string) int {
 	var stack []byte
@@ -252,4 +253,42 @@ func maxDepth(s string) int {
 	}
 
 	return max
+}
+
+//返回可能的数字组合
+
+func getPos(s string) (pos []string) {
+	if s[0] != '0' || s == "0" {
+		pos = append(pos, s)
+	}
+	for p := 1; p < len(s); p++ {
+		if p != 1 && s[0] == '0' || s[len(s)-1] == '0' { //只要末尾是0 全部都要舍弃
+			continue
+		}
+		pos = append(pos, s[:p]+"."+s[p:])
+	}
+	return
+}
+
+// 816模糊坐标
+
+func ambiguousCoordinates(s string) (res []string) {
+	n := len(s) - 2
+	s = s[1 : len(s)-1]
+	for l := 1; l < n; l++ {
+		lt := getPos(s[:l])
+		if len(lt) == 0 {
+			continue
+		}
+		rt := getPos(s[l:])
+		if len(rt) == 0 {
+			continue
+		}
+		for _, i := range lt {
+			for _, j := range rt {
+				res = append(res, "("+i+", "+j+")")
+			}
+		}
+	}
+	return
 }
