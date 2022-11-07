@@ -262,7 +262,7 @@ func getPos(s string) (pos []string) {
 		pos = append(pos, s)
 	}
 	for p := 1; p < len(s); p++ {
-		if p != 1 && s[0] == '0' || s[len(s)-1] == '0' { //只要末尾是0 全部都要舍弃
+		if (p != 1 && s[0] == '0') || s[len(s)-1] == '0' { //只要末尾是0 全部都要舍弃
 			continue
 		}
 		pos = append(pos, s[:p]+"."+s[p:])
