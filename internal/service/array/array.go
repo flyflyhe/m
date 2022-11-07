@@ -17,14 +17,13 @@ func peakIndexInMountainArray(arr []int) int {
 	return point
 }
 
-
 func peakIndexInMountainArray2(arr []int) int {
 	left := 1
 	right := len(arr) - 1
 
 	for left < right {
 		mid := (left + right + 1) / 2
-		if arr[mid - 1] < arr[mid]  {
+		if arr[mid-1] < arr[mid] {
 			left = mid
 		} else {
 			right = mid - 1
@@ -65,14 +64,14 @@ func findMaxAverage(nums []int, k int) float64 {
 	ans = sum / float64(k)
 
 	for i := k; i < len(nums); i++ {
-		sum = sum + float64(nums[i] - nums[i-k])
+		sum = sum + float64(nums[i]-nums[i-k])
 		ans = math.Max(ans, sum/float64(k))
 	}
 
 	return ans
 }
 
-func mergeSortArr(nums1 []int, m int, nums2 []int, n int)  {
+func mergeSortArr(nums1 []int, m int, nums2 []int, n int) {
 	i := m - 1
 	j := n - 1
 	idx := m + n - 1
@@ -96,16 +95,17 @@ func mergeSortArr(nums1 []int, m int, nums2 []int, n int)  {
 	}
 }
 
-/**
+/*
+*
 跳跃游戏
- */
+*/
 func jump(nums []int) int {
 	end := 0
 	maxPosition := 0
 	step := 0
 
-	for i := 0; i < len(nums) - 1; i++ {
-		maxPosition = max(maxPosition, i + nums[i])
+	for i := 0; i < len(nums)-1; i++ {
+		maxPosition = max(maxPosition, i+nums[i])
 		if i == end {
 			step++
 			end = maxPosition
@@ -115,14 +115,15 @@ func jump(nums []int) int {
 	return step
 }
 
-/**
+/*
+*
 f(n) = f(n - k) + 1
- */
-func jumpDp(nums []int) int  {
+*/
+func jumpDp(nums []int) int {
 	arr := make([]int, len(nums))
 	j := 0
 	for i := 1; i < len(nums); i++ {
-		for j + nums[j] < i {
+		for j+nums[j] < i {
 			j++
 		}
 		arr[i] = arr[j] + 1
@@ -139,47 +140,49 @@ func min(x, y int) int {
 	return y
 }
 
-/**
+/*
+*
 杨辉三角
- */
+*/
 func GetRow(rowIndex int) []int {
-	arr := make([][]int, rowIndex + 1)
+	arr := make([][]int, rowIndex+1)
 	arr[0] = make([]int, 1)
 	arr[0][0] = 1
-	for i := 1; i < rowIndex + 1; i++ {
-		arr[i] = make([]int, i + 1)
+	for i := 1; i < rowIndex+1; i++ {
+		arr[i] = make([]int, i+1)
 		arr[i][0] = 1
 		arr[i][i] = 1
 		for j := 1; j < i; j++ {
 			arr[i][j] = arr[i-1][j-1] + arr[i-1][j]
- 		}
+		}
 	}
 
 	return arr[rowIndex]
 }
 
-/**
+/*
+*
 超出时间限制
- */
+*/
 func maxArea(height []int) int {
 	maxArea := 0
 	length := len(height)
-	for i := 0; i < length - 1; i++ {
+	for i := 0; i < length-1; i++ {
 		for j := i + 1; j < length; j++ {
-			maxArea = max(maxArea, (j - i) * min(height[i], height[j]))
+			maxArea = max(maxArea, (j-i)*min(height[i], height[j]))
 		}
 	}
 
 	return maxArea
 }
 
-func maxArea2(height []int) int  {
+func maxArea2(height []int) int {
 	maxArea := 0
 	length := len(height)
 	l := 0
 	r := length - 1
 	for l < r {
-		maxArea = max(maxArea, (r - l) * min(height[l], height[r]))
+		maxArea = max(maxArea, (r-l)*min(height[l], height[r]))
 		if height[l] < height[r] {
 			l++
 		} else {
@@ -195,9 +198,9 @@ func destCity(paths [][]string) string {
 }
 
 func ThirdMax(nums []int) int {
-	max := -1<<31
-	second := -1<<31
-	third := -1<<31
+	max := -1 << 31
+	second := -1 << 31
+	third := -1 << 31
 	hasThird := false
 
 	for _, v := range nums {
@@ -206,7 +209,7 @@ func ThirdMax(nums []int) int {
 		}
 	}
 	for _, v := range nums {
-		if  v < max && second < v {
+		if v < max && second < v {
 			second = v
 		}
 	}
@@ -227,21 +230,24 @@ func ThirdMax(nums []int) int {
 }
 
 func ThirdMax2(nums []int) int {
-	a := -1<<32
-	b := -1<<32
-	c := -1<<32
+	a := -1 << 32
+	b := -1 << 32
+	c := -1 << 32
 
 	for _, x := range nums {
 		if x > a {
-			c = b; b = a; a = x
+			c = b
+			b = a
+			a = x
 		} else if x < a && x > b {
-			c = b; b = x
+			c = b
+			b = x
 		} else if x < b && x > c {
 			c = x
 		}
 	}
 
-	if c != -1 << 32 {
+	if c != -1<<32 {
 		return c
 	}
 
@@ -250,7 +256,7 @@ func ThirdMax2(nums []int) int {
 
 /**
 山脉数组
- */
+*/
 
 func PeakIndexInMountainArray(arr []int) int {
 	length := len(arr)
@@ -258,10 +264,10 @@ func PeakIndexInMountainArray(arr []int) int {
 	r := length - 2
 	for l < r {
 		mid := (l + r) / 2
-		fmt.Println("l", l, "r", r, "m",mid)
+		fmt.Println("l", l, "r", r, "m", mid)
 		if arr[mid-1] < arr[mid] && arr[mid] < arr[mid+1] {
 			l = mid + 1
-		} else if arr[mid - 1] > arr[mid] && arr[mid] > arr[mid + 1] {
+		} else if arr[mid-1] > arr[mid] && arr[mid] > arr[mid+1] {
 			r = mid
 		} else {
 			return mid
@@ -273,13 +279,13 @@ func PeakIndexInMountainArray(arr []int) int {
 
 /**
 二维数组的遍历
- */
+*/
 
-func TwoArrayErgodic(s [][]int)  {
+func TwoArrayErgodic(s [][]int) {
 	rows := len(s)
 	columns := len(s[0])
 	totalElements := rows * columns
-	order :=  make([]int, totalElements)
+	order := make([]int, totalElements)
 	vertical := -1
 	horizontal := 1
 	row := 0
@@ -312,12 +318,12 @@ func TwoArrayErgodic(s [][]int)  {
 	fmt.Println(order)
 }
 
-func TwoArrayErgodic2(s [][]int)  {
+func TwoArrayErgodic2(s [][]int) {
 	rows := len(s)
 	columns := len(s[0])
 	totalElements := rows * columns
-	order :=  make([]int, totalElements)
-	vertical := -1 // 竖直
+	order := make([]int, totalElements)
+	vertical := -1   // 竖直
 	horizontal := -1 //水平
 	row := 0
 	column := columns - 1
@@ -353,40 +359,40 @@ func ShoppingOffers(price []int, special [][]int, needs []int) int {
 	//1.计算原价
 	//2.计算大礼包
 	//3.更具最低价个减去需求单后，递归计算购物单
-	return dfs(price,special,needs)
+	return dfs(price, special, needs)
 
 }
-func dfs(prices []int,specials [][]int,needs []int) int{
-	minPrice:=0
+func dfs(prices []int, specials [][]int, needs []int) int {
+	minPrice := 0
 	//计算原价
-	for i,v:=range needs{
-		minPrice +=prices[i]*v
+	for i, v := range needs {
+		minPrice += prices[i] * v
 	}
 	//计算大礼包
 loop:
-	for _,s:=range specials{
-		newNeeds:=make([]int,len(needs))
+	for _, s := range specials {
+		newNeeds := make([]int, len(needs))
 		copy(newNeeds, needs)
 		/**
 		每一个礼包 用一个用两个用n个循环
-		 */
-		for i:=range newNeeds{
-			newNeeds[i]-=s[i]
-			if newNeeds[i]<0{
+		*/
+		for i := range newNeeds {
+			newNeeds[i] -= s[i]
+			if newNeeds[i] < 0 {
 				continue loop
 			}
 		}
-		curPrice:=dfs(prices,specials,newNeeds)+s[len(prices)]
-		minPrice =minInt(minPrice,curPrice)
+		curPrice := dfs(prices, specials, newNeeds) + s[len(prices)]
+		minPrice = minInt(minPrice, curPrice)
 	}
 	return minPrice
 
 }
 
-func minInt(values ...int)int{
-	result:=math.MaxInt32
-	for _,v:=range values{
-		if v<result{
+func minInt(values ...int) int {
+	result := math.MaxInt32
+	for _, v := range values {
+		if v < result {
 			result = v
 		}
 	}
@@ -401,19 +407,19 @@ func Combine(n, k int) [][]int {
 }
 
 /**
-	void backtracking(参数) {
-		if (终止条件) {
-			存放结果;
-			return;
-		}
-
-		for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
-			处理节点;
-			backtracking(路径，选择列表); // 递归
-			回溯，撤销处理结果
-		}
+void backtracking(参数) {
+	if (终止条件) {
+		存放结果;
+		return;
 	}
- */
+
+	for (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) {
+		处理节点;
+		backtracking(路径，选择列表); // 递归
+		回溯，撤销处理结果
+	}
+}
+*/
 
 func combineDfs(start, n, k int, c []int, ret *[][]int) {
 	if len(c) == k {
@@ -423,10 +429,10 @@ func combineDfs(start, n, k int, c []int, ret *[][]int) {
 		fmt.Println(tmp)
 		return
 	}
-	for i := start; i < n - (k - len(c)) + 1 ; i++ {
+	for i := start; i < n-(k-len(c))+1; i++ {
 		c = append(c, i)
-		combineDfs(i + 1, n, k, c, ret)
-		c = c[0:len(c) - 1]
+		combineDfs(i+1, n, k, c, ret)
+		c = c[0 : len(c)-1]
 	}
 }
 
@@ -437,7 +443,7 @@ func CombinationSum3(k int, n int) [][]int {
 	return ret
 }
 
-func combinationSumDfs(start, end, n , k int, path []int, ret *[][]int) {
+func combinationSumDfs(start, end, n, k int, path []int, ret *[][]int) {
 	if len(path) == k && Sum(path...) == n {
 		tmp := make([]int, k)
 		copy(tmp, path)
@@ -445,14 +451,14 @@ func combinationSumDfs(start, end, n , k int, path []int, ret *[][]int) {
 		return
 	}
 
-	for i := start; i < end ; i++ {
+	for i := start; i < end; i++ {
 		path = append(path, i)
 		combinationSumDfs(i+1, end, n, k, path, ret)
-		path = path[0:len(path)-1]
+		path = path[0 : len(path)-1]
 	}
 }
 
-func Sum(values... int) (s int) {
+func Sum(values ...int) (s int) {
 	for _, item := range values {
 		s += item
 	}
@@ -468,21 +474,21 @@ func GenerateMatrix(n int) [][]int {
 	}
 	row := 0
 	col := -1
-	moveArr := [][]int {
-		{0, 1}, //向右
-		{1, 0}, //向下
+	moveArr := [][]int{
+		{0, 1},  //向右
+		{1, 0},  //向下
 		{0, -1}, //向左
 		{-1, 0}, //向上
 	}
 	direction := 0
-	for i := 1; i <= cols * rows; i++ {
+	for i := 1; i <= cols*rows; i++ {
 		row = row + moveArr[direction][0]
 		col = col + moveArr[direction][1]
 
 		//fmt.Println("row",row, "col", col)
 		nextRow := row + moveArr[direction][0]
 		nextCol := col + moveArr[direction][1]
-		if nextRow == cols  {
+		if nextRow == cols {
 			direction++
 		} else if nextCol == rows {
 			direction++
@@ -512,7 +518,7 @@ func MaximalRectangle(matrix []string) int {
 	colEnd := cols - 1
 	/**
 	起点 {x,y} 遍历所有比它大的坐标
-	 */
+	*/
 	for row := 0; row < rows; row++ {
 		for col := 0; col < cols; col++ {
 			if colEnd > rowEnd {
@@ -534,7 +540,7 @@ func MaximalRectangle(matrix []string) int {
 							}
 						}
 					}
-					next1:
+				next1:
 				}
 			} else {
 				for row1 := rowEnd; row1 >= row; row1-- {
@@ -554,7 +560,7 @@ func MaximalRectangle(matrix []string) int {
 							}
 						}
 					}
-					next2:
+				next2:
 				}
 			}
 		}
@@ -566,8 +572,8 @@ func MaximalRectangle(matrix []string) int {
 func MatrixArea(x, y, x1, y1 int, matrix []string) (int, bool) {
 	area := (x1 - x + 1) * (y1 - y + 1)
 	result := true
-	for row := x ; row <= x1; row++ {
-		for col := y ; col <= y1; col++ {
+	for row := x; row <= x1; row++ {
+		for col := y; col <= y1; col++ {
 			if matrix[row][col] == '0' {
 				result = false
 				break
@@ -579,9 +585,9 @@ func MatrixArea(x, y, x1, y1 int, matrix []string) (int, bool) {
 
 /**
 快速排序
- */
+*/
 
-func KSort(nums []int)  {
+func KSort(nums []int) {
 	var sort func(int, int)
 
 	sort = func(left, right int) {
@@ -604,14 +610,14 @@ func KSort(nums []int)  {
 		}
 		nums[left] = nums[l]
 		nums[l] = tmp
-		sort(left, l - 1)
-		sort(l + 1, right)
+		sort(left, l-1)
+		sort(l+1, right)
 	}
 
-	sort(0, len(nums) - 1)
+	sort(0, len(nums)-1)
 }
 
-func KSort2(nums []int)  {
+func KSort2(nums []int) {
 	var sort func(int, int)
 	sort = func(start, end int) {
 		if end > start {
@@ -622,23 +628,23 @@ func KSort2(nums []int)  {
 			for i := start; i < end; i++ {
 				if nums[i] < nums[end] {
 					p1++
-					nums[p1], nums[i]  = nums[i], nums[p1]
+					nums[p1], nums[i] = nums[i], nums[p1]
 				}
 			}
-			//循环结束p1 执行小于random的最后一个值 所以需要++ p1 可能==0 没有值比random 小
+			//循环结束p1 需要++ 因为要把末尾的数字交换过来
 			p1++
 			nums[p1], nums[end] = nums[end], nums[p1]
 
-			sort(start, p1 - 1)
-			sort(p1 + 1, end)
+			sort(start, p1-1) //分治处理
+			sort(p1+1, end)   //分治处理
 		}
 	}
-	sort(0, len(nums) - 1)
+	sort(0, len(nums)-1)
 }
 
 /**
 只出现一次的数字
- */
+*/
 
 func singleNumber(nums []int) []int {
 	xorSum := 0
@@ -659,7 +665,7 @@ func singleNumber(nums []int) []int {
 
 /**
 :495 提莫攻击
- */
+*/
 
 func findPoisonedDuration(timeSeries []int, duration int) int {
 	length := len(timeSeries)
@@ -669,7 +675,7 @@ func findPoisonedDuration(timeSeries []int, duration int) int {
 	dp := make([]int, length)
 	dp[0] = duration
 	for i := 1; i < length; i++ {
-		dp[i] = dp[i-1] + min(timeSeries[i] - timeSeries[i-1], duration)
+		dp[i] = dp[i-1] + min(timeSeries[i]-timeSeries[i-1], duration)
 	}
 
 	return dp[length-1]
@@ -684,7 +690,7 @@ func findPoisonedDuration2(timeSeries []int, duration int) int {
 	prev := duration
 	max := duration
 	for i := 1; i < length; i++ {
-		max = prev + min(timeSeries[i] - timeSeries[i-1], duration)
+		max = prev + min(timeSeries[i]-timeSeries[i-1], duration)
 		prev = max
 	}
 
@@ -693,7 +699,7 @@ func findPoisonedDuration2(timeSeries []int, duration int) int {
 
 /**
 :846 一把顺子
- */
+*/
 
 func isNStraightHand(hand []int, groupSize int) bool {
 	m := make(map[int]int)
@@ -710,7 +716,7 @@ func isNStraightHand(hand []int, groupSize int) bool {
 		} else if v == last {
 			continue
 		} else {
-			if last != -1 && v - last != 1 {
+			if last != -1 && v-last != 1 {
 				return false
 			} else {
 				if last == -1 {
@@ -722,7 +728,7 @@ func isNStraightHand(hand []int, groupSize int) bool {
 				if size == groupSize {
 					last = -1
 					size = 0
-					if i - start != groupSize - 1 {
+					if i-start != groupSize-1 {
 						i = start
 					}
 				}

@@ -2,23 +2,23 @@ package heap
 
 import "fmt"
 
-func SortByMaxHeap(nums []int) []int{
+func SortByMaxHeap(nums []int) []int {
 	heap := BuildMaxHeap(nums)
 	l := len(nums)
-	for i := 0; i < l; i++{
-		nums[l - i -1] = heap[0]
-		heap[0], heap[l - i - 1] = heap[l - i - 1], heap[0]
-		heap = BuildMaxHeap(heap[0:l - i - 1])
+	for i := 0; i < l; i++ {
+		nums[l-i-1] = heap[0]
+		heap[0], heap[l-i-1] = heap[l-i-1], heap[0]
+		heap = BuildMaxHeap(heap[0 : l-i-1])
 	}
 
 	return nums
 }
 
 func BuildMaxHeap(nums []int) []int {
-	heapArr := make([]int, len(nums) + 1)
+	heapArr := make([]int, len(nums)+1)
 
 	for i, num := range nums {
-		 InsertHeap(heapArr, i + 1, num)
+		InsertHeap(heapArr, i+1, num)
 	}
 
 	return heapArr[1:]
@@ -33,16 +33,17 @@ func InsertHeap(heapArr []int, i, num int) {
 			heapArr[i] = num
 		} else {
 			heapArr[i] = heapArr[parent]
+
 			heapArr[parent] = num
 			InsertHeap(heapArr, parent, num)
 		}
 	}
 }
 
-func SortByMaxHeap2(nums []int) []int{
+func SortByMaxHeap2(nums []int) []int {
 	BuildMaxHeap2(nums, len(nums))
 	l := len(nums)
-	for i := 0; i < l;{
+	for i := 0; i < l; {
 		l = l - 1
 		nums[l], nums[i] = nums[i], nums[l]
 		fmt.Println(nums)
@@ -66,10 +67,10 @@ func InsertHeap2(nums []int, i int) {
 	}
 
 	var pos int
-	if i % 2 == 1 {
+	if i%2 == 1 {
 		pos = i / 2
 	} else {
-		pos = i / 2 - 1
+		pos = i/2 - 1
 	}
 
 	if nums[pos] < nums[i] {
