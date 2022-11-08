@@ -89,7 +89,7 @@ func MergeSort2(nums []int) {
 	for seg := 1; seg < length; seg += seg {
 		for start := 0; start < length; start += seg * 2 {
 			end := min(start+seg*2, length)
-			mid := min(start+seg, length)
+			mid := min(start+seg, length) //mid 为两个需要合并的子数组的第二个数组的起始值
 			fmt.Println("seg", seg, "start", start, "mid", mid, "end", end)
 			i := start
 			j := mid
