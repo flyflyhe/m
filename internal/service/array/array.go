@@ -738,3 +738,43 @@ func isNStraightHand(hand []int, groupSize int) bool {
 
 	return len(m) == len(hand) && last == -1
 }
+
+// 左闭右闭区间
+
+func binarySearch(a int, arr []int) bool {
+	var mid int
+	left := 0
+	right := len(arr) - 1
+	for left <= right {
+		mid = (left + right) / 2
+		if arr[mid] < a {
+			left = mid + 1
+		} else if arr[mid] > a {
+			right = mid - 1
+		} else {
+			return true
+		}
+	}
+
+	return false
+}
+
+//左闭右开
+
+func binarySearch2(a int, arr []int) bool {
+	var mid int
+	left := 0
+	right := len(arr)
+	for left < right {
+		mid = (left + right) / 2
+		if arr[mid] < a {
+			left = mid + 1
+		} else if arr[mid] > a {
+			right = mid
+		} else {
+			return true
+		}
+	}
+
+	return false
+}

@@ -2,8 +2,9 @@ package main
 
 import (
 	_ "embed"
+	"encoding/json"
 	"fmt"
-	"log"
+	"time"
 )
 
 type Handler interface {
@@ -56,7 +57,16 @@ var src string
 var i *string
 
 func main() {
-	log.Println(fn())
+	t := struct {
+		time.Time
+		N int
+	}{
+		time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),
+		5,
+	}
+
+	m, _ := json.Marshal(t)
+	fmt.Printf("%s", m)
 }
 
 func fn() (r int) {

@@ -224,3 +224,24 @@ func Dfs(temp, nums []int, start int) {
 		temp = temp[:len(temp)-1]
 	}
 }
+
+//1710. 卡车上的最大单元数
+
+func maximumUnits(boxTypes [][]int, truckSize int) int {
+	sort.Slice(boxTypes, func(i, j int) bool {
+		return boxTypes[i][1] > boxTypes[j][1]
+	})
+
+	size := 0
+	ans := 0
+	for _, item := range boxTypes {
+		if item[0]+size > truckSize {
+			ans += (truckSize - size) * item[1]
+			break
+		} else {
+			ans += item[0] * item[1]
+			size += item[0]
+		}
+	}
+	return ans
+}
