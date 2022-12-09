@@ -1,6 +1,7 @@
 package num
 
 import (
+	"flyflyhe.com/m/internal/service/array"
 	"fmt"
 	"math"
 	"sort"
@@ -11,7 +12,7 @@ import (
 func computeArea(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2 int) int {
 	area1 := (ax2 - ax1) * (ay2 - ay1)
 	area2 := (bx2 - bx1) * (by2 - by1)
-	overlapWidth := min(ax2, bx2) - max(ax1, bx1) //重叠宽度
+	overlapWidth := min(ax2, bx2) - max(ax1, bx1)  //重叠宽度
 	overlapHeight := min(ay2, by2) - max(ay1, by1) //重叠高度
 	overlapArea := max(overlapWidth, 0) * max(overlapHeight, 0)
 	return area1 + area2 - overlapArea
@@ -51,9 +52,9 @@ func ToHex(num int) string {
 		return "0"
 	}
 	sb := &strings.Builder{}
-	hexNum := "0123456789abcdef"//数字映射
+	hexNum := "0123456789abcdef" //数字映射
 	for sb.Len() < 8 {
-		sb.WriteByte(hexNum[num & 0xf])
+		sb.WriteByte(hexNum[num&0xf])
 		num >>= 4
 		if num == 0 {
 			break
@@ -65,24 +66,24 @@ func ToHex(num int) string {
 
 /**
 模拟长除法
- */
+*/
 func fractionToDecimal(numerator int, denominator int) string {
 	a := int64(numerator)
 	b := int64(denominator)
 
 	//可以整除 直接返回
-	if a % b == 0 {
+	if a%b == 0 {
 		return strconv.Itoa(int(a / b))
 	}
 
 	sb := strings.Builder{}
-	if a * b < 0 {
+	if a*b < 0 {
 		sb.WriteString("-")
 	}
 
 	a = AbsInt(a)
 	b = AbsInt(b)
-	sb.WriteString(strconv.Itoa(int(a / b)) + ".")
+	sb.WriteString(strconv.Itoa(int(a/b)) + ".")
 
 	a %= b
 	m := make(map[int64]int)
@@ -120,7 +121,7 @@ func AbsDiffUint(x, y uint64) uint64 {
 }
 
 func Reverse(s string) (result string) {
-	for _,v := range s {
+	for _, v := range s {
 		result = string(v) + result
 	}
 	return
@@ -128,7 +129,7 @@ func Reverse(s string) (result string) {
 
 /**
 排列硬币
- */
+*/
 
 func ArrangeCoins(n int) int {
 	max := (1 << 31) - 1
@@ -154,12 +155,12 @@ func arrangeCoins(n int) int {
 
 /**
 外观数列
- */
+*/
 
 func CountAndSay(n int) string {
 	m := make(map[int]string)
 	m[1] = "1"
-	for i := 2; i < n + 1; i++ {
+	for i := 2; i < n+1; i++ {
 		sb := strings.Builder{}
 		var tmp byte
 		var tmpCounter int
@@ -205,7 +206,7 @@ func countAndSay(n int) string {
 
 /**
 282 给表达式添加运算符
- */
+*/
 
 func addOperators(num string, target int) (ans []string) {
 	n := len(num)
@@ -228,9 +229,12 @@ func addOperators(num string, target int) (ans []string) {
 			if i == 0 { // 表达式开头不能添加符号
 				backtrack(expr, j+1, val, val)
 			} else { // 枚举符号
-				expr[signIndex] = '+'; backtrack(expr, j+1, res+val, val)
-				expr[signIndex] = '-'; backtrack(expr, j+1, res-val, -val)
-				expr[signIndex] = '*'; backtrack(expr, j+1, res-mul+mul*val, mul*val)
+				expr[signIndex] = '+'
+				backtrack(expr, j+1, res+val, val)
+				expr[signIndex] = '-'
+				backtrack(expr, j+1, res-val, -val)
+				expr[signIndex] = '*'
+				backtrack(expr, j+1, res-mul+mul*val, mul*val)
 			}
 		}
 	}
@@ -240,7 +244,7 @@ func addOperators(num string, target int) (ans []string) {
 
 /**
 476:数字的补数
- */
+*/
 
 func FindComplement(num int) int {
 	s := -1
@@ -267,7 +271,7 @@ func PlusOne(digits []int) []int {
 		if carry == 0 {
 			break
 		} else {
-			index := l-i-1
+			index := l - i - 1
 			digits[index]++
 			if digits[index] >= 10 {
 				carry = 1
@@ -285,13 +289,12 @@ func PlusOne(digits []int) []int {
 		digits = append(digits, tmp...)
 	}
 
-
 	return digits
 }
 
 /**
 判断一个数 重排后能否是2的幂
- */
+*/
 
 func ReorderedPowerOf2(n int) bool {
 	bytes := []byte(strconv.Itoa(n))
@@ -301,7 +304,7 @@ func ReorderedPowerOf2(n int) bool {
 
 	var dfs func([]byte, []byte) bool
 
-	dfs = func(s []byte,  path []byte)  bool {
+	dfs = func(s []byte, path []byte) bool {
 		if len(path) == length {
 			if _, ok := m[string(path)]; ok {
 				return true
@@ -313,7 +316,7 @@ func ReorderedPowerOf2(n int) bool {
 
 			s1 := make([]byte, len(s))
 			copy(s1, s)
-			if j + 1 < len(s) {
+			if j+1 < len(s) {
 				s1 = append(s1[0:j], s1[j+1:]...)
 			} else {
 				s1 = s1[0:j]
@@ -325,13 +328,13 @@ func ReorderedPowerOf2(n int) bool {
 				return true
 			}
 
-			path = path[:len(path) - 1]
+			path = path[:len(path)-1]
 		}
 
 		return false
 	}
 
-	return  dfs(bytes, []byte{})
+	return dfs(bytes, []byte{})
 }
 
 func power2map() map[string]bool {
@@ -345,7 +348,7 @@ func power2map() map[string]bool {
 func cnt2power(n string) [10]int {
 	var cnt [10]int
 	for i := 0; i < len(n); i++ {
-		cnt[(n[i] - '0') % 10]++
+		cnt[(n[i]-'0')%10]++
 	}
 
 	return cnt
@@ -357,7 +360,7 @@ func Arrangement(num int) []string {
 
 	var ret []string
 	var dfs func([]byte, []byte)
-	dfs = func(s []byte,  path []byte)  {
+	dfs = func(s []byte, path []byte) {
 		if len(path) == length {
 			ret = append(ret, string(path))
 			return
@@ -367,7 +370,7 @@ func Arrangement(num int) []string {
 
 			s1 := make([]byte, len(s))
 			copy(s1, s)
-			if j + 1 < len(s) {
+			if j+1 < len(s) {
 				s1 = append(s1[0:j], s1[j+1:]...)
 			} else {
 				s1 = s1[0:j]
@@ -377,7 +380,7 @@ func Arrangement(num int) []string {
 
 			dfs(s1, path)
 
-			path = path[:len(path) - 1]
+			path = path[:len(path)-1]
 		}
 	}
 
@@ -392,7 +395,7 @@ func Permute(nums []int) [][]int {
 	length := len(nums)
 	var ret [][]int
 	var dfs func([]int, []int)
-	dfs = func(s []int,  path []int)  {
+	dfs = func(s []int, path []int) {
 		if len(path) == length {
 			newPath := make([]int, length)
 			copy(newPath, path)
@@ -403,7 +406,7 @@ func Permute(nums []int) [][]int {
 			path = append(path, s[j])
 			s1 := make([]int, len(s))
 			copy(s1, s)
-			if j + 1 < len(s) {
+			if j+1 < len(s) {
 				s1 = append(s1[0:j], s1[j+1:]...)
 			} else {
 				s1 = s1[0:j]
@@ -411,7 +414,7 @@ func Permute(nums []int) [][]int {
 
 			dfs(s1, path)
 
-			path = path[:len(path) - 1]
+			path = path[:len(path)-1]
 		}
 	}
 
@@ -430,8 +433,8 @@ func originalDigits(s string) string {
 	}
 
 	bytes := []byte{'z', 'u', 'x', 'f', 'r', 'w', 'o', 'v', 'h', 'i'}
-	byteNumMap := map[byte]int{'z':0, 'u':4, 'x':6, 'f':5, 'r':3, 'w':2, 'o':1, 'v':7, 'h':8, 'i':9}
-	byteNumEnMap := map[byte]string{'z':"zero", 'u':"four", 'x':"six", 'f':"five", 'r':"three", 'w':"two", 'o':"one", 'v':"seven", 'h':"eight", 'i':"nine"}
+	byteNumMap := map[byte]int{'z': 0, 'u': 4, 'x': 6, 'f': 5, 'r': 3, 'w': 2, 'o': 1, 'v': 7, 'h': 8, 'i': 9}
+	byteNumEnMap := map[byte]string{'z': "zero", 'u': "four", 'x': "six", 'f': "five", 'r': "three", 'w': "two", 'o': "one", 'v': "seven", 'h': "eight", 'i': "nine"}
 
 	ret := [10]int{}
 	for _, v := range bytes {
@@ -458,3 +461,35 @@ func originalDigits(s string) string {
 	return ans.String()
 }
 
+func checkPowersOfThree(n int) bool {
+	if n == 0 {
+		return false
+	}
+	var nums []int
+
+	for i := 0; i < 17; i++ {
+		t := int(math.Pow(3, float64(i)))
+		nums = append(nums, t)
+	}
+
+	m := make(map[int]struct{})
+	var dfs func([]int, []int, int)
+
+	dfs = func(temp, nums []int, start int) {
+		tmp := make([]int, len(temp))
+		copy(tmp, temp)
+		m[array.Sum(tmp...)] = struct{}{}
+		for i := start; i < len(nums); i++ {
+			temp = append(temp, nums[i])
+			dfs(temp, nums, i+1)
+			temp = temp[:len(temp)-1]
+		}
+	}
+
+	dfs([]int{}, nums, 0)
+
+	if _, ok := m[n]; ok {
+		return true
+	}
+	return false
+}

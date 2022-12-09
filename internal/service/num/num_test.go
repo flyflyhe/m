@@ -10,8 +10,8 @@ func TestToHex(t *testing.T) {
 	fmt.Println(ToHex(26))
 }
 
-func TestSearch(t *testing.T)  {
-	arr  := []int{1,3,4,5,5,5,6,7,8}
+func TestSearch(t *testing.T) {
+	arr := []int{1, 3, 4, 5, 5, 5, 6, 7, 8}
 	fmt.Println(sort.Search(len(arr), func(i int) bool {
 		return arr[i] >= 5
 	}))
@@ -26,7 +26,7 @@ func TestFindComplement(t *testing.T) {
 }
 
 func TestPlusOne(t *testing.T) {
-	fmt.Println(PlusOne([]int{1,2,3}))
+	fmt.Println(PlusOne([]int{1, 2, 3}))
 	fmt.Println(PlusOne([]int{9}))
 }
 
@@ -43,6 +43,10 @@ func TestArrangement(t *testing.T) {
 }
 
 func TestPermute(t *testing.T) {
-	fmt.Println(Permute([]int{5,4,6,2}))
+	fmt.Println(Permute([]int{5, 4, 6, 2}))
 	fmt.Println(Arrangement(5462))
+}
+
+func Test_checkPowersOfThree(t *testing.T) {
+	checkPowersOfThree(7)
 }
