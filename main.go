@@ -2,9 +2,7 @@ package main
 
 import (
 	_ "embed"
-	"encoding/json"
 	"fmt"
-	"time"
 )
 
 type Handler interface {
@@ -56,17 +54,44 @@ func InterfaceFunc() {
 var src string
 var i *string
 
-func main() {
-	t := struct {
-		time.Time
-		N int
-	}{
-		time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),
-		5,
-	}
+type Person struct {
+	Name string
+	Age  int
+}
 
-	m, _ := json.Marshal(t)
-	fmt.Printf("%s", m)
+func (p Person) PrintName() {
+	fmt.Println("Name:", p.Name)
+}
+func (p *Person) SetAge(age int) {
+	p.Age = age
+}
+
+type Singer struct {
+	*Person // 通过内嵌Person类型来扩展之
+	works   []string
+}
+
+type A interface {
+	aa()
+}
+
+type B interface {
+	A
+}
+
+type BS struct {
+}
+
+func (BS) aa() {
+	fmt.Println("aa")
+}
+
+func main() {
+	s := make([]int, 1)
+	fmt.Println(len(s))
+	s = append(s, 2)
+	fmt.Println(len(s))
+	fmt.Println(cap(s))
 }
 
 func fn() (r int) {

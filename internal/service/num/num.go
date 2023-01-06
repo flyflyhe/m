@@ -64,7 +64,8 @@ func ToHex(num int) string {
 	return Reverse(sb.String())
 }
 
-/**
+/*
+*
 模拟长除法
 */
 func fractionToDecimal(numerator int, denominator int) string {
@@ -492,4 +493,28 @@ func checkPowersOfThree(n int) bool {
 		return true
 	}
 	return false
+}
+
+func countEven(num int) int {
+	ans := 0
+	for i := 1; i < num; i++ {
+		if i < 10 {
+			if i%2 == 0 {
+				ans++
+			}
+		} else {
+			t := 0
+			tt := i
+			for tt >= 10 {
+				t += tt % 10
+				tt = tt / 10
+			}
+			t += tt
+			if t%2 == 0 {
+				ans++
+			}
+		}
+	}
+
+	return ans
 }
