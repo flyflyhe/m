@@ -292,3 +292,39 @@ func ambiguousCoordinates(s string) (res []string) {
 	}
 	return
 }
+
+func areSentencesSimilar(sentence1 string, sentence2 string) bool {
+	var w1List []string
+	var w2List []string
+	if len(sentence1) >= len(sentence2) {
+		w1List = strings.Split(sentence1, " ")
+		w2List = strings.Split(sentence2, " ")
+	} else {
+		w1List = strings.Split(sentence2, " ")
+		w2List = strings.Split(sentence1, " ")
+	}
+
+	var point int
+	var ans bool = true
+	for i, v := range w2List {
+		point = i
+		if v != w1List[i] {
+			ans = false
+			break
+		}
+	}
+
+	if ans {
+		return true
+	}
+
+	j := len(w1List) - 1
+	for i := len(w2List) - 1; i >= point; i-- {
+		if w2List[i] != w1List[j] {
+			return false
+		}
+		j--
+	}
+
+	return true
+}
