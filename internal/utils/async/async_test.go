@@ -22,14 +22,12 @@ func Test_aHttp(t *testing.T) {
 }
 
 func Test_aHttpCtx(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	resChan := aHttpCtx(ctx, "https://www.google.com")
+	ctx, _ := context.WithCancel(context.Background())
+	resChan := aHttpCtx(ctx, "https://www.baidu.com")
 	defer close(resChan)
 
 	fmt.Println("feature mode")
 	time.Sleep(time.Second)
-
-	cancel()
 
 	res := <-resChan
 	if res.Err != nil {

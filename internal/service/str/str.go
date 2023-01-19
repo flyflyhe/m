@@ -328,3 +328,35 @@ func areSentencesSimilar(sentence1 string, sentence2 string) bool {
 
 	return true
 }
+
+func strongPasswordCheckerII(password string) bool {
+	if len(password) < 8 {
+		return false
+	}
+
+	s := false
+	b := false
+	n := false
+	sp := false
+
+	var pre byte
+	for i := 0; i < len(password); i++ {
+		if i != 0 && pre == password[i] {
+			return false
+		}
+
+		pre = password[i]
+
+		if password[i] >= 'a' && password[i] <= 'z' {
+			s = true
+		} else if password[i] >= 'A' && password[i] <= 'Z' {
+			b = true
+		} else if password[i] >= '0' && password[i] <= '9' {
+			n = true
+		} else {
+			sp = true
+		}
+	}
+
+	return s && b && n && sp
+}
