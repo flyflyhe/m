@@ -36,6 +36,7 @@ func aHttpCtx(ctx context.Context, url string) chan *HttpResponse {
 		fmt.Println("body", request.Body)
 		if err != nil {
 			res.Err = err
+			httpRes <- res
 			return
 		}
 
